@@ -1,0 +1,28 @@
+{
+  "name": "contentHub",
+  "description": "Content Hub for iRecruit Australia",
+  "version": "0.0.0",
+  "license": "ISC",
+  "author": {
+    "name": "Ivan Lucas"
+  },
+  "repository": "https://github.com/iRecruitAustralia/contentHub.git",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "*"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "grunt": "*",
+    "grunt-concurrent": "^2.1.0",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-php": "*",
+    "grunt-postcss": "^0.8.0",
+    "load-grunt-config": "*",
+    "load-grunt-tasks": "*"
+  }
+}
