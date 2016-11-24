@@ -4,7 +4,7 @@ default:
   - 'watch'
 
 build:
-  #- 'clean'
+  - 'clean'
   - 'copy'
   - 'sass'
   - 'postcss'
