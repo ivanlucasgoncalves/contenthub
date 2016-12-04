@@ -1,6 +1,8 @@
 /**
 *	jQuery Document Ready
 */
+
+
 jQuery( document ).ready( function($) {
 
 	/** AddClass for every single img for avoiding mistakes **/
@@ -12,68 +14,78 @@ jQuery( document ).ready( function($) {
 	/** Main Menu **/
 	$( "#showRightPush" ).click(function() {
 	  $( '.overlay-contentscale' ).toggleClass( "open" );
+		$( 'body' ).toggleClass( "pos-fixed" );
+	});
+
+	/** Login **/
+	$( ".userIcon" ).click(function() {
+	  $( '.contentscale-login' ).toggleClass( "open" );
+		$( 'body' ).toggleClass( "pos-fixed" );
 	});
 
 	/** Progress Bar JS **/
 	$(window).scroll(function() {
-	    var scroll = $(window).scrollTop();
-	    if (scroll > 600) {
-	        $(".progress-container, .floatingRecommend").addClass("fixed"); // you don't need to add a "." in before your class name
-	        $("header").addClass("whiteBg"); // you don't need to add a "." in before your class name
-	    } else {
-	        $("header").removeClass("whiteBg");
-	        $(".progress-container, .floatingRecommend").removeClass("fixed");
-	    }
-	    // var screenWidth = window.screen.width;
-	    // var progressBarWidth = $('.progressBar').width();
+		var scroll = $(window).scrollTop();
+		if (scroll > 542) {
+				$(".progress-container, .floatingRecommend").addClass("fixed"); // you don't need to add a "." in before your class name
+				$("header").addClass("whiteBg"); // you don't need to add a "." in before your class name
+		} else {
+				$("header").removeClass("whiteBg");
+				$(".progress-container, .floatingRecommend").removeClass("fixed");
+		}
 	});
 
-	var getMax = function() {
-			return $('.container .articleContent').height();
+	/** Continue Progress Bar **/
+	var getMax = function(){
+		return $(window).height();
 	}
 	var getValue = function(){
-			return $(window).scrollTop();
+		return $(window).scrollTop();
 	}
 	if('max' in document.createElement('div')){
 		// Browser supports progress element
 		var progressBar = $('.progressBar');
+
 		// Set the Max attr for the first time
 		progressBar.attr({ max: getMax() });
+
 		$(document).on('scroll', function(){
-			// On scroll only Value attr needs to be calculated
-			progressBar.attr({ value: getValue() });
+				// On scroll only Value attr needs to be calculated
+				progressBar.attr({ value: getValue() });
 		});
+
 		$(window).resize(function(){
-			// On resize, both Max/Value attr needs to be calculated
-			progressBar.attr({ max: getMax(), value: getValue() });
+				// On resize, both Max/Value attr needs to be calculated
+				progressBar.attr({ max: getMax(), value: getValue() });
 		});
 	}
 	else {
 		var progressBar = $('.progressBar'),
-			max = getMax(),
-			value, width;
+				max = getMax(),
+				value, width;
 
 		var getWidth = function(){
-			// Calculate width in percentage
-			value = getValue();
-			width = (value/max) * 100;
-			widthCheck = width;
-			width = width + '%';
+				// Calculate width in percentage
+				value = getValue();
+				width = (value/max) * 100;
+				widthCheck = width;
+				width = width + '%';
 			return width;
 		}
 		var setWidth = function(){
-			progressBar.css({ width: getWidth() });
-			if (widthCheck > 80) {
-					$('.floatingRecommend').fadeIn(500);
-			} else{
-					$('.floatingRecommend').fadeOut(500);
-			};
+				progressBar.css({ width: getWidth() });
+				if (widthCheck > 80) {
+						$('.floatingRecommend').fadeIn(500);
+				} else{
+						$('.floatingRecommend').fadeOut(500);
+				};
 		}
+
 		$(document).on('scroll', setWidth);
 		$(window).on('resize', function(){
-			// Need to reset the Max attr
-			max = getMax();
-			setWidth();
+				// Need to reset the Max attr
+				max = getMax();
+				setWidth();
 		});
 	}
 
@@ -116,5 +128,6 @@ jQuery( document ).ready( function($) {
     }
     lastScrollTop = st;
 	}
+
 
 }); /* Close Document Ready */

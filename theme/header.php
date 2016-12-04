@@ -3,7 +3,7 @@
  * The template for displaying the header
  * Displays all of the head element and everything up until the "site-content" div.
  */
- $img_logo = get_theme_mod( 'img_logo', esc_url( get_template_directory_uri() . '/img/logo.png' ) ); // Logo Memorial
+ $img_logo = get_theme_mod( 'img_logo', esc_url( get_template_directory_uri() . '/img/logo.png' ) ); // Logo
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
@@ -15,11 +15,27 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 	<?php wp_head(); ?>
+  <div id="fb-root"></div>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1219998328070399',
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+    };
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
 </head>
-
 <body <?php body_class(); ?>>
 
-<header id="masthead" class="site-header" role="banner">
+<header id="masthead">
 	<div class="site-header-main">
 		<div class="site-branding">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( $img_logo ); ?>" alt="Logo ContentHub"></a>
@@ -39,23 +55,13 @@
       <div class="search">
   			<div class="searchIcon"></div>
   		</div>
+      <div class="user">
+  			<div class="userIcon">Log In</div>
+  		</div>
       <button id="showRightPush" class="tcon tcon-menu--xcross hidden-desktop" aria-label="toggle menu">
         <span class="tcon-menu__lines" aria-hidden="true"></span>
-        <span class="tcon-visuallyhidden">Show/Hide Right Push Menu</span>
+        <span class="tcon-visuallyhidden">Show Menu</span>
       </button>
     </div>
 	</div><!-- .site-header-main -->
-	<div class="progress-container fixed" style="top: 0px;">
-		<div class="progressBar" style="width: 30.8316%;"></div>
-	</div><!-- .progressive.bar -->
-	<?php if ( get_header_image() ) : ?>
-		<?php $custom_header_sizes = apply_filters( 'twentysixteen_custom_header_sizes', '(max-width: 709px) 85vw, (max-width: 909px) 81vw, (max-width: 1362px) 88vw, 1200px' ); ?>
-		<div class="header-image">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-				<img src="<?php header_image(); ?>" srcset="<?php echo esc_attr( wp_get_attachment_image_srcset( get_custom_header()->attachment_id ) ); ?>" sizes="<?php echo esc_attr( $custom_header_sizes ); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
-			</a>
-		</div><!-- .header-image -->
-	<?php endif; // End header image check. ?>
 </header><!-- .site-header -->
-
-<div id="content" class="site-content">

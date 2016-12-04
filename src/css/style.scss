@@ -4,10 +4,20 @@
 // 01. Includes
 // 02. General Style
 // 03. Main Style
-//// 03.1. Header
-//// 04.2. Home Page
-//// 04.3. Footer
-// 08. Responsive
+// 04. Header
+// 05. Header - Internal Pages
+// 06. Progress Bar - Internal Pages
+// 07. Home | Highlights, Post Categories, Featured, Quotes of the day
+// 08. Content
+// 09. Article  - Internal Pages
+// 10. Author Biograph Section
+// 11. Comments Area
+// 12. Secondary Menu
+// 13. Social Logins
+// 14. Taskbar Footer | Comments and Share
+// 15. Footer
+// 13. Responsive
+// 13. Responsive
 // =============================================================================
 
 
@@ -22,17 +32,39 @@
 // =============================================================================
 // 02. General Style
 // =============================================================================
-
-
-// =============================================================================
-// 03. Main Style
-// =============================================================================
 .img-fluid {
   max-width: 100%;
   height: auto;
 }
+.home {
+  header {
+    background: $quite_white;
+    box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.05);
+  }
+}
+.pos-fixed {
+  position: fixed;
+  overflow-y: scroll;
+}
+
 // =============================================================================
-// 03.1. Header
+// 03. Main Style
+// =============================================================================
+#content {
+  max-width: 1640px;
+  margin: 0 auto;
+  padding: $pad0_20;
+}
+.post-categories,
+.featured {
+  #content{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// =============================================================================
+// 04. Header
 // =============================================================================
 header {
   transition: 0.8s;
@@ -41,8 +73,6 @@ header {
   position: fixed;
   top: 0px;
   z-index: 9999;
-  background: $quite_white;
-  box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.05);
   .site-header-main {
     display: flex;
     justify-content: space-between;
@@ -73,7 +103,7 @@ header {
               width: 100%;
               height: 100%;
               display: inline-block;
-              color: #999;
+              color: $quite_black;
               font-weight: 400;
               font-size: 13px;
               line-height: 60px;
@@ -81,7 +111,7 @@ header {
               }
               &:hover, &:active{
               transition: 1s;
-              color: #444;
+              color: $grey;
               cursor: pointer;
               }
             }
@@ -92,20 +122,74 @@ header {
           height: 60px;
           transition: 0.5s;
           cursor: pointer;
+          position: relative;
+          display: flex;
+          align-items: center;
           .searchIcon {
             width: 25px;
             height: 25px;
             opacity: 0.3;
             transition: 1s;
             margin: 0 auto;
-            margin-top: 17px;
             background: url(../img/svg/search.svg);
             background-size: 100% 100%;
           }
+          &:before {
+            display: table;
+            content: " ";
+            border-left: 1px solid $light_grey;
+            position: absolute;
+            left: 0;
+            height: 30px;
+          }
           &:hover, &:active {
             transition: 0.5s;
-            background-color: #eee;
+            background-color: $superlight_grey;
             .searchIcon {
+              opacity: 0.8s;
+              transition: 1s;
+            }
+          }
+        }
+        .user {
+          width: 75px;
+          height: 60px;
+          transition: 0.5s;
+          cursor: pointer;
+          position: relative;
+          display: flex;
+          align-items: center;
+          .userIcon {
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+            color: $grey;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 60px;
+            text-transform: uppercase;
+            text-align: center;
+          }
+          &:before {
+            display: table;
+            content: " ";
+            border-left: 1px solid $light_grey;
+            position: absolute;
+            left: 0;
+            height: 30px;
+          }
+          &:after {
+            display: table;
+            content: " ";
+            border-right: 1px solid $light_grey;
+            position: absolute;
+            right: 0;
+            height: 30px;
+          }
+          &:hover, &:active {
+            transition: 0.5s;
+            background-color: $superlight_grey;
+            .userIcon {
               opacity: 0.8s;
               transition: 1s;
             }
@@ -116,21 +200,205 @@ header {
   }
 
 // =============================================================================
-// 03.1. Content
+// 05. Header - Internal Pages
 // =============================================================================
-#content {
-  max-width: 1600px;
-  margin: 0 auto;
+.internal-pages {
+  #site-navigation {
+    ul {
+      li {
+        a {
+          color: $white;
+        }
+      }
+    }
+  }
+  .tcon-menu__lines {
+    background: $white;
+    &:before,
+    &:after {
+      background: $white;
+    }
+  }
+  .site-header-main {
+    .blk-menu-search {
+      .user {
+        .userIcon {
+          color: $white;
+        }
+      }
+    }
+  }
+  .whiteBg {
+    background: $light_white;
+    box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.05);
+    .tcon-menu__lines {
+      background: $quite_black;
+      &:before,
+      &:after {
+        background: $quite_black;
+      }
+    }
+    .tcon-menu--xcross.tcon-transform {
+      .tcon-menu__lines {
+        background: transparent;
+      }
+    }
+    #site-navigation {
+      ul {
+        li {
+          a {
+            color: $quite_black;
+          }
+        }
+      }
+    }
+    .site-header-main {
+      .blk-menu-search {
+        .search {
+          &:before{
+            border-left: 1px solid $light_grey;
+          }
+          &:after {
+           border-right: 1px solid $light_grey;
+         }
+        }
+        .user {
+          .userIcon {
+            color: $quite_black;
+          }
+        }
+      }
+    }
+  }
+}
+.internal-header {
+  min-height: 500px;
+  padding-bottom: $pad10;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-attachment: fixed;
+  position: relative;
+  .content-header {
+    padding-top: 150px;
+    max-width: 1640px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    h1 {
+      max-width: 45%;
+      margin: 0 auto;
+      font-size: 3.5em;
+      line-height: 1.2em;
+      font-weight: 400;
+      color: $white;
+      padding: $pad10;
+    }
+    .estimated-time {
+      display: block;
+      color: $white;
+      margin: $marg10_0;
+    }
+    .author {
+      margin-top: 120px;
+      display: block;
+      img {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 70px;
+      }
+    }
+    .category-title {
+      display: inline-table;
+      box-sizing: border-box;
+      padding: 4px 11px;
+      color: $white;
+      font-weight: 400;
+      font-size: 0.76em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: $midlle_blue;
+      margin-bottom: 10px;
+    }
+    .internal-postedby {
+      width: 100%;
+      color: $white;
+      font-weight: 200;
+      font-size: 1em;
+    }
+  }
+  .gradient {
+    height: 100%;
+    width: 100%;
+    transition: all 0.25s ease-in-out;
+    background-size: 100% 100%;
+    background-color: rgba(0,2,3,0.25);
+    position: absolute;
+    top: 0;
+    z-index: 0;
+  }
 }
 
 // =============================================================================
-// 03.1. Home | Highlights
+// 06. Progress Bar - Internal Pages
 // =============================================================================
+.progress-container {
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  height: 5px;
+  display: block;
+  z-index: 999;
+  .progressBar {
+    width: 0%;
+    height: 5px;
+    background-color: #52bdec;
+  }
+}
+.fixed {
+  position: fixed;
+}
+
+// =============================================================================
+// 07. Home | Highlights, Post Categories, Featured, Quotes of the day
+// =============================================================================
+
+.share {
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9;
+  a {
+    display: inline-block;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    margin-left: 22px;
+    &:first-child {
+      margin-left: 0px;
+    }
+  }
+}
+article:hover .share a {
+  transition: all 0.2s ease-in-out;
+  opacity: 0.6;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+  filter: alpha(opacity=60);
+}
+article:hover .share a:hover {
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=1);
+  filter: alpha(opacity=1);
+}
+
 .home-highlights {
   height: auto;
   width: 100%;
   margin-top: 60px;
-  background-color: #CCC;
   .blk_0 {
     height: 500px;
     width: 60%;
@@ -186,8 +454,8 @@ header {
         transition: all 0.2s ease-in-out;
         color: $white;
         font-weight: 700;
-        font-size: 2.1em;
-        line-height: 46px;
+        font-size: 2em;
+        line-height: 40px;
         text-rendering: optimizeLegibility;
         position: absolute;
         bottom: 40px;
@@ -199,13 +467,14 @@ header {
         height: 100%;
         bottom: 0;
         left: 0;
+        z-index: 1;
       }
       .category {
         box-sizing: border-box;
         padding: 4px 11px;
         color: $white;
         font-weight: 400;
-        font-size: 0.78em;
+        font-size: 0.76em;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         background-color: $midlle_blue;
@@ -227,8 +496,9 @@ header {
       width: 100%;
       transition: all 0.25s ease-in-out;
       background-size: 100% 100%;
-      background-image: url(../img/gradientFirst.png);
-      background-repeat: repeat-x;
+      /*background-image: url(../img/gradientFirst.png);
+      background-repeat: repeat-x;*/
+      background-color: rgba(0, 2, 3, 0.25);
     }
     .bottomBlue {
       height: 0px;
@@ -255,8 +525,6 @@ header {
   }
 }
 .post-categories {
-  display: flex;
-  justify-content: space-between;
   background: $light_white;
   padding-bottom: 60px;
   .blk_categories {
@@ -281,7 +549,7 @@ header {
       }
     }
     .article-top {
-      height: 230px;
+      height: 260px;
       width: 100%;
       position: relative;
       box-sizing: border-box;
@@ -305,153 +573,20 @@ header {
           text-rendering: optimizeLegibility;
           margin-bottom: 10px;
         }
-        .posted-by {
-          color: #a8a8a8;
-          font-weight: 300;
-          font-size: 0.8em;
-          font-style: italic;
-        }
-      }
-      .gradient {
-        height: 100%;
-        width: 100%;
-        transition: all 0.25s ease-in-out;
-        background-size: 100% 100%;
-        background-image: url(../img/gradientFirst.png);
-        background-repeat: repeat-x;
-      }
-      .bottomBlue {
-        height: 0px;
-        width: 100%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 0px;
-        background-color: $midlle_blue;
-      }
-      &:hover .bottomBlue,
-      &:active .bottomBlue {
-        transition: all 0.2s ease-in-out;
-        height: 5px;
-      }
-      &:hover,
-      &:active {
-        transition: all 0.2s ease-in-out;
-        //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
-        .blk-info {
-          transition: all 0.2s ease-in-out;
-          bottom: 30px;
-        }
-      }
-    }
-    .article-bottom {
-      padding: $pad15_0;
-      border-bottom: 1px solid #e1e1e1;
-      img {
-        height: 90px;
-        width: 20%;
-        min-width: 100px;
-        float: left;
-        object-fit: cover;
-      }
-      .secondary-info {
-        height: auto;
-        width: 67%;
-        float: left;
-        box-sizing: border-box;
-        padding-left: 15px;
-        h4 {
-          font-size: 1.1em;
-          transition: all 0.1s ease-in-out;
-          color: $blue;
-          line-height: 1.3em;
-        }
-        h5 {
-          font-size: 0.85em;
-          font-weight: 400;
-          color: $dark_blue;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          margin-top: 12px;
-          margin-bottom: 5px;
-        }
-      }
-      &:before,
-      &:after {
-        content: "";
-        display: table;
-      }
-      &:after {
-        clear: both;
-      }
-    }
-  }
-}
-.featured {
-  display: flex;
-  justify-content: space-between;
-  padding: 60px 0;
-  h1 {
-    font-weight: 900;
-    font-size: 3.5em;
-    color: $blue;
-    line-height: 1.1em;
-    word-wrap: break-word;
-    width: 90%;
-  }
-  section {
-    width: 30.5%;
-  }
-  .blk_categories {
-    /*width: 30.5%;*/
-    position: relative;
-    box-sizing: border-box;
-    h2 {
-      font-size: 1.9em;
-      padding: $pad20_0;
-      a {
-        transition: all 0.05s ease-in-out;
-        color: $blue;
-        font-weight: 700;
-      }
-      &:before{
-        content: "";
-        position: absolute;
-        height: 5px;
-        background: $blue;
-        top: 0;
-        width: 10%;
-      }
-    }
-    .article-top {
-      height: 230px;
-      width: 100%;
-      position: relative;
-      box-sizing: border-box;
-      transition: all 0.3s ease-in-out;
-      background-size: 100% 100%;
-      cursor: pointer;
-      .blk-info {
-        height: auto;
-        width: 90%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 20px;
-        margin-left: 15px;
-        h3 {
-          transition: all 0.2s ease-in-out;
-          max-width: 100%;
+        .post-format {
+          margin: 0;
           color: $white;
-          font-weight: 700;
-          font-size: 1.4em;
-          line-height: 29px;
-          text-rendering: optimizeLegibility;
-          margin-bottom: 10px;
+          font-size: 0.8em;
+          &::first-letter {
+            text-transform: uppercase;
+          }
         }
         .posted-by {
-          color: #a8a8a8;
+          color: $light_grey;
           font-weight: 300;
           font-size: 0.8em;
           font-style: italic;
+          margin: 0;
         }
       }
       .gradient {
@@ -459,8 +594,9 @@ header {
         width: 100%;
         transition: all 0.25s ease-in-out;
         background-size: 100% 100%;
-        background-image: url(../img/gradientFirst.png);
-        background-repeat: repeat-x;
+        /*background-image: url(../img/gradientFirst.png);
+        background-repeat: repeat-x;*/
+        background-color: rgba(0, 2, 3, 0.25);
       }
       .bottomBlue {
         height: 0px;
@@ -490,16 +626,14 @@ header {
       border-bottom: 1px solid #e1e1e1;
       a {
         display: flex;
-        align-items: center;
-        .posted-by {
+        img {
+          height: 90px;
           width: 20%;
           min-width: 100px;
-          color: #a8a8a8;
-          font-weight: 300;
-          font-size: 0.8em;
-          text-align: center;
+          object-fit: cover;
         }
         .secondary-info {
+          height: auto;
           width: 80%;
           box-sizing: border-box;
           padding-left: 15px;
@@ -519,23 +653,176 @@ header {
             margin-bottom: 5px;
           }
         }
-      }
-      &:before,
-      &:after {
-        content: "";
-        display: table;
-      }
-      &:after {
-        clear: both;
+        &:before,
+        &:after {
+          content: "";
+          display: table;
+        }
+        &:after {
+          clear: both;
+        }
       }
     }
   }
-
 }
-
-// =============================================================================
-// 03.1. Secondary Menu
-// =============================================================================
+.featured {
+  padding: 60px 0;
+  #content {
+    h1 {
+      font-weight: 900;
+      font-size: 3.5em;
+      color: $blue;
+      line-height: 1.1em;
+      word-wrap: break-word;
+      width: 90%;
+    }
+    section {
+      width: 30.5%;
+    }
+    .message-title {
+      padding-top: 90px;
+    }
+    .featured-highpost {
+      .blk_categories {
+        height: 100%;
+        .article-top {
+          height: 100%;
+        }
+      }
+    }
+    .blk_categories {
+      /*width: 30.5%;*/
+      position: relative;
+      box-sizing: border-box;
+      h2 {
+        font-size: 1.9em;
+        padding: $pad20_0;
+        a {
+          transition: all 0.05s ease-in-out;
+          color: $blue;
+          font-weight: 700;
+        }
+        &:before{
+          content: "";
+          position: absolute;
+          height: 5px;
+          background: $blue;
+          top: 0;
+          width: 10%;
+        }
+      }
+      .article-top {
+        height: 260px;
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        background-size: 100% 100%;
+        cursor: pointer;
+        .blk-info {
+          height: auto;
+          width: 90%;
+          position: absolute;
+          transition: all 0.2s ease-in-out;
+          bottom: 20px;
+          margin-left: 15px;
+          h3 {
+            transition: all 0.2s ease-in-out;
+            max-width: 100%;
+            color: $white;
+            font-weight: 700;
+            font-size: 1.4em;
+            line-height: 29px;
+            text-rendering: optimizeLegibility;
+            margin-bottom: 10px;
+          }
+          .post-format {
+            margin: 0;
+            color: $white;
+            font-size: 0.8em;
+            &::first-letter {
+              text-transform: uppercase;
+            }
+          }
+          .posted-by {
+            color: $light_grey;
+            font-weight: 300;
+            font-size: 0.8em;
+            font-style: italic;
+            margin: 0;
+          }
+        }
+        .gradient {
+          height: 100%;
+          width: 100%;
+          transition: all 0.25s ease-in-out;
+          background-size: 100% 100%;
+          /*background-image: url(../img/gradientFirst.png);
+          background-repeat: repeat-x;*/
+          background-color: rgba(0,2,3,0.25);
+        }
+        .bottomBlue {
+          height: 0px;
+          width: 100%;
+          position: absolute;
+          transition: all 0.2s ease-in-out;
+          bottom: 0px;
+          background-color: $midlle_blue;
+        }
+        &:hover .bottomBlue,
+        &:active .bottomBlue {
+          transition: all 0.2s ease-in-out;
+          height: 5px;
+        }
+        &:hover,
+        &:active {
+          transition: all 0.2s ease-in-out;
+          //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
+          .blk-info {
+            transition: all 0.2s ease-in-out;
+            bottom: 30px;
+          }
+        }
+      }
+      .article-bottom {
+        padding: $pad10_0;
+        border-bottom: 1px solid #e1e1e1;
+        a {
+          display: flex;
+          align-items: center;
+          .posted-by {
+            width: 20%;
+            min-width: 100px;
+            color: $light_grey;
+            font-weight: 300;
+            font-size: 0.8em;
+            text-align: center;
+          }
+          .secondary-info {
+            width: 80%;
+            box-sizing: border-box;
+            padding-left: 15px;
+            h4 {
+              font-size: 1em;
+              transition: all 0.1s ease-in-out;
+              color: $grey;
+              line-height: 1.3em;
+              font-weight: 400;
+            }
+          }
+        }
+        &:before,
+        &:after {
+          content: "";
+          display: table;
+        }
+        &:after {
+          clear: both;
+        }
+      }
+    }
+  }
+}
 .quotes-day {
   width: 100%;
   max-width: 700px;
@@ -576,21 +863,254 @@ header {
 }
 
 // =============================================================================
-// 03.1. Secondary Menu
+// 08. Content
 // =============================================================================
-.overlay-contentscale.open {
+
+// =============================================================================
+// 09. Article  - Internal Pages
+// =============================================================================
+section.internal-pages {
+  #content {
+    article {
+      max-width: 700px;
+      padding: $pad30_0;
+      width: 100%;
+      margin: 0 auto;
+      p {
+        font-weight: 300;
+        font-size: 1.25em;
+        color: #111;
+        line-height: 1.55em;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 10. Author Biograph Section
+// =============================================================================
+.author_bio_section {
+  .author_details {
+    display: flex;
+    justify-content: space-between;
+    .author_avatar {
+      width: 15%;
+      padding-right: $pad20;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+    .author_content {
+      width: 85%;
+      h3 {
+        font-size: 1.3em;
+        font-weight: 400;
+        color: #333;
+        margin-bottom: 10px;
+      }
+      blockquote.text_author {
+        margin: 0;
+        padding: 0;
+        font-size: 0.9em;
+        color: #999;
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 11. Comments Area
+// =============================================================================
+#comments {
+  background: $superlight_grey;
+  .comments-area {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    padding: $pad30_0;
+    h2 {
+      margin-bottom: 35px;
+      color: #333;
+      font-weight: 600;
+      font-size: 1.35em;
+      letter-spacing: 1px;
+    }
+    .comment-respond {
+      margin-bottom: $marg40;
+      #cancel-comment-reply-link {
+        color: #051821;
+        height: auto;
+        box-sizing: border-box;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+      .form-submit {
+        #submit {
+          background: none;
+          border: none;
+          padding: 0;
+          margin: 0;
+          color: #051821;
+          cursor: pointer;
+        }
+      }
+    }
+    .comment-form-comment {
+      textarea {
+        width: 100%;
+        padding: $pad10;
+        resize: none;
+        height: auto;
+        transition: all 0.4s ease-in-out;
+        box-sizing: border-box;
+        background-color: #FFF;
+        color: #444;
+        font-size: 1.1em;
+        font-weight: 200;
+        letter-spacing: 1px;
+        line-height: 1.3em;
+        border: none;
+        outline: #777;
+        &:focus {
+          min-height: 75px;
+          transition: all 0.4s ease-in-out;
+          box-shadow: 2px 2px 25px 15px #f7f7f7;
+          behavior: url(../htc/pie.htc);
+          zoom: 1;
+        }
+      }
+    }
+    .comment-form-author-email {
+      display: flex;
+      input {
+        width: 50%;
+        padding: 12px;
+        height: auto;
+        transition: all 0.4s ease-in-out;
+        box-sizing: border-box;
+        background-color: #FFF;
+        color: #444;
+        font-size: 1.1em;
+        font-weight: 200;
+        letter-spacing: 1px;
+        line-height: 1.3em;
+        border: none;
+        outline: #777;
+      }
+      #author {
+        margin-right: $marg10;
+      }
+      #email {
+        margin-left: $marg10;
+      }
+    }
+    .comment-body {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      width: 100%;
+      height: auto;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #EFEFEF;
+    }
+    .comment-metadata {
+      position: absolute;
+      top: 25px;
+      left: 10%;
+      box-sizing: border-box;
+      font-size: 0.75em;
+      font-weight: 300;
+      pointer-events: none;
+      a {
+        color: $black;
+      }
+    }
+    .comment-meta {
+      width: 10%;
+      padding-right: 15px;
+      text-align: right;
+      .comment-awaiting-moderation {
+        display: none;
+      }
+      .comment-author {
+        img {
+          object-fit: cover;
+          border-radius: 50%;
+          width: 100%;
+        }
+        .fn {
+          position: absolute;
+          top:0;
+          left: 10%;
+          height: auto;
+          box-sizing: border-box;
+          font-size: 1.2em;
+          font-weight: 500;
+        }
+        .says {
+          display: none;
+        }
+      }
+    }
+    .comment-content {
+      width: 90%;
+      padding-top: 35px;
+      padding-bottom: 20px;
+      height: auto;
+      box-sizing: border-box;
+      font-size: 1em;
+      font-weight: 300;
+      margin-top: 10px;
+      color: #777;
+    }
+    .reply {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      a {
+        color: #051821;
+        height: auto;
+        box-sizing: border-box;
+        font-size: 1em;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 12. Secondary Menu
+// =============================================================================
+.overlay-contentscale.open,
+.contentscale-login.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
   transform: translateY(0%);
   -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
 }
-.overlay-contentscale {
+.overlay-contentscale,
+.contentscale-login {
   visibility: hidden;
   -webkit-transform: translateY(100%);
   transform: translateY(100%);
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
+}
+.overlay-login {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.93);
 }
 .overlay {
   position: fixed;
@@ -599,20 +1119,7 @@ header {
   top: 0;
   left: 0;
   background: rgba(44, 89, 109, 0.93);
-  .overlay-close {
-    width: 80px;
-    height: 63px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    overflow: hidden;
-    border: none;
-    background: url(../img/cross.png) no-repeat center center;
-    text-indent: 200%;
-    color: transparent;
-    outline: none;
-    z-index: 100;
-  }
+  z-index: 2;
   nav {
     text-align: center;
     position: relative;
@@ -636,15 +1143,12 @@ header {
           font-size: 3em;
           font-weight: 400;
           display: block;
-          color: #fff;
+          color: $white;
           -webkit-transition: color 0.2s;
           transition: color 0.2s;
           text-transform: uppercase;
         }
         &:hover, &:focus {
-          -webkit-opacity: 0.8;
-          -khtml-opacity: 0.8;
-          -moz-opacity: 0.8;
           opacity: 0.8;
           -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
           filter: alpha(opacity=80);
@@ -678,7 +1182,106 @@ header {
   }
 }
 
+// =============================================================================
+// 13. Social Logins
+// =============================================================================
+.blk-social-logins {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: 120px;
+  .sign-facebook,
+  .sign-twitter,
+  .sign-google,
+  .sign-linkedin {
+    display: block;
+    margin: $marg10_0;
+    a {
+      color: $white;
+      display: flex;
+      width: 100%;
+      min-height: 66px;
+      figure {
+        width: 80px;
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px;
+      }
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: $pad15;
+        b {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  .sign-facebook {
+    background: $color_face;
+    a {
+      figure {
+        border-right: 1px solid rgba(22, 104, 162, 0.25);
+        img {
+          width: 19px;
+        }
+      }
+      span {
+        border-left: 1px solid rgba(65, 151, 202, 0.25);
+      }
+    }
+  }
+  .sign-twitter {
+    background: $color_twitter;
+    a {
+      figure {
+        border-right: 1px solid rgba(35, 129, 201, 0.25);
+        img {
+          width: 38px;
+        }
+      }
+      span {
+        border-left: 1px solid rgba(77, 171, 230, 0.25);
+      }
+    }
+  }
+  .sign-google {
+    background: $color_google;
+    a {
+      figure {
+        border-right: 1px solid rgba(217, 55, 40, 0.25);
+        img {
+          width: 42px;
+        }
+      }
+      span {
+        border-left: 1px solid rgba(239, 101, 84, 0.25);
+      }
+    }
+  }
+  .sign-linkedin {
+    background: $color_linkedin;
+    a {
+      figure {
+        border-right: 1px solid rgba(35, 129, 201, 0.25);
+        img {
+          width: 34px;
+        }
+      }
+      span {
+        border-left: 1px solid rgba(77, 171, 230, 0.25);
+      }
+    }
+  }
+}
 
+// =============================================================================
+// 14. Taskbar Footer | Comments and Share
+// =============================================================================
 .postActionsNav {
   height: 50px;
   width: 100%;
@@ -691,105 +1294,143 @@ header {
   bottom: -50px !important;
   background: #FFF;
   border-top: 1px solid #F9F9F9;
-}
-.postActionsNav .centralize {
-  height: auto;
-  width: 60%;
-}
-.postActionsNav .comment {
-  height: 27px;
-  width: 120px;
-  box-sizing: border-box;
-  float: left;
-  -webkit-opacity: 0.5;
-  -khtml-opacity: 0.5;
-  -moz-opacity: 0.5;
-  opacity: 0.5;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
-  filter: alpha(opacity=50);
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  color: #333;
-  padding-left: 38px;
-  line-height: 30px;
-  font-size: 0.9em;
-  font-weight: 400;
-  //background-image: url('../svg/speech-bubble-outline.svg');
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.postActionsNav .comment:hover,
-.postActionsNav .comment:active {
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  -webkit-opacity: 0.9;
-  -khtml-opacity: 0.9;
-  -moz-opacity: 0.9;
-  opacity: 0.9;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
-  filter: alpha(opacity=90);
-}
-.postActionsNav .share {
-  height: 27px;
-  width: 120px;
-  -ms-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  float: right;
-  -webkit-opacity: 0.5;
-  -khtml-opacity: 0.5;
-  -moz-opacity: 0.5;
-  opacity: 0.5;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
-  filter: alpha(opacity=50);
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  color: #333;
-  line-height: 30px;
-  font-size: 0.9em;
-  font-weight: 400;
-}
-.postActionsNav .share:hover,
-.postActionsNav .share:active {
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  -webkit-opacity: 0.9;
-  -khtml-opacity: 0.9;
-  -moz-opacity: 0.9;
-  opacity: 0.9;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
-  filter: alpha(opacity=90);
+  .centralize {
+    height: auto;
+    width: 60%;
+    margin: 0 auto;
+  }
+  .comment {
+    height: 27px;
+    width: 120px;
+    box-sizing: border-box;
+    float: left;
+    -webkit-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    -moz-opacity: 0.5;
+    opacity: 0.5;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+    filter: alpha(opacity=50);
+    transition: all 0.1s ease-in-out;
+    color: #333;
+    padding-left: 38px;
+    line-height: 30px;
+    font-size: 0.9em;
+    font-weight: 400;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    &:hover,
+    &:active {
+      transition: all 0.1s ease-in-out;
+      -webkit-opacity: 0.9;
+      -khtml-opacity: 0.9;
+      -moz-opacity: 0.9;
+      opacity: 0.9;
+      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
+      filter: alpha(opacity=90);
+    }
+  }
+  .share {
+    height: 27px;
+    width: 120px;
+    box-sizing: border-box;
+    float: right;
+    -webkit-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    -moz-opacity: 0.5;
+    opacity: 0.5;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+    filter: alpha(opacity=50);
+    transition: all 0.1s ease-in-out;
+    color: #333;
+    line-height: 30px;
+    font-size: 0.9em;
+    font-weight: 400;
+    &:hover,
+    &:active {
+      transition: all 0.1s ease-in-out;
+      -webkit-opacity: 0.9;
+      -khtml-opacity: 0.9;
+      -moz-opacity: 0.9;
+      opacity: 0.9;
+      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
+      filter: alpha(opacity=90);
+    }
+  }
 }
 
-
-.progress-container {
+// =============================================================================
+// 15. Footer
+// =============================================================================
+footer.site-footer {
   width: 100%;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  background-color: transparent;
-  top: 0;
-  left: 0;
-  height: 5px;
-  display: block;
-  z-index: 999;
+  background-color: $dark_blue;
+  padding: 40px 0 100px 0;
+  .logo {
+    height: 47px;
+    width: 67px;
+    background: url(../img/logo-footer.png);
+    background-size: cover;
+    margin: 0 auto;
+  }
+  .social-links-menu {
+    height: 40px;
+    padding: 0;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    li {
+      margin: $marg0_10;
+      a {
+        height: 35px;
+        width: 35px;
+        -webkit-transition: all 0.05s ease-in-out;
+        -moz-transition: all 0.05s ease-in-out;
+        -o-transition: all 0.05s ease-in-out;
+        transition: all 0.05s ease-in-out;
+        display: inline-block;
+        background-size: cover;
+        &:hover,
+        &:active {
+          -webkit-transition: all 0.05s ease-in-out;
+          -moz-transition: all 0.05s ease-in-out;
+          -o-transition: all 0.05s ease-in-out;
+          transition: all 0.05s ease-in-out;
+          -webkit-opacity: 0.7;
+          -khtml-opacity: 0.7;
+          -moz-opacity: 0.7;
+          opacity: 0.7;
+          -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+          filter: alpha(opacity=70);
+        }
+        span {
+          text-indent: -99999px;
+          display: block;
+        }
+      }
+      &.facebook a {
+        background-image: url(../img/svg/facebook.svg);
+      }
+      &.twitter a {
+        background-image: url(../img/svg/twitter.svg);
+      }
+      &.google a {
+        background-image: url(../img/svg/google.svg);
+      }
+      &.linkedin a {
+        background-image: url(../img/svg/linkedin.svg);
+      }
+      &.pinterest a {
+        background-image: url(../img/svg/pinterestWhite.svg);
+      }
+      &.rss a {
+        background-image: url(../img/svg/rssWhite.svg);
+      }
+    }
+  }
 }
-.progressBar {
-  width: 0%;
-  height: 5px;
-  background-color: #52bdec;
-}
+
+
 
 .appear {
   margin-top: 0px;
@@ -854,77 +1495,4 @@ header {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   bottom: -50px;
-}
-
-
-
-// =============================================================================
-// 05. Footer
-// =============================================================================
-footer {
-  width: 100%;
-  background-color: $dark_blue;
-  padding: 40px 0 100px 0;
-  .logo {
-    height: 47px;
-    width: 67px;
-    background: url(../img/logo-footer.png);
-    background-size: cover;
-    margin: 0 auto;
-  }
-  .social-links-menu {
-    height: 40px;
-    padding: 0;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    li {
-      margin: $marg0_10;
-      a {
-        height: 35px;
-        width: 35px;
-        -webkit-transition: all 0.05s ease-in-out;
-        -moz-transition: all 0.05s ease-in-out;
-        -o-transition: all 0.05s ease-in-out;
-        transition: all 0.05s ease-in-out;
-        display: inline-block;
-        background-size: cover;
-        &:hover,
-        &:active {
-          -webkit-transition: all 0.05s ease-in-out;
-          -moz-transition: all 0.05s ease-in-out;
-          -o-transition: all 0.05s ease-in-out;
-          transition: all 0.05s ease-in-out;
-          -webkit-opacity: 0.7;
-          -khtml-opacity: 0.7;
-          -moz-opacity: 0.7;
-          opacity: 0.7;
-          -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
-          filter: alpha(opacity=70);
-        }
-        span {
-          text-indent: -99999px;
-          display: block;
-        }
-      }
-      &.facebook a {
-        background-image: url(../img/svg/facebookWhite.svg);
-      }
-      &.twitter a {
-        background-image: url(../img/svg/twitterWhite.svg);
-      }
-      &.google a {
-        background-image: url(../img/svg/googleWhite.svg);
-      }
-      &.linkedin a {
-        background-image: url(../img/svg/linkedinWhite.svg);
-      }
-      &.pinterest a {
-        background-image: url(../img/svg/pinterestWhite.svg);
-      }
-      &.rss a {
-        background-image: url(../img/svg/rssWhite.svg);
-      }
-    }
-  }
 }

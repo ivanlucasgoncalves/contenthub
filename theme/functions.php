@@ -98,6 +98,22 @@ function twentysixteen_setup() {
 		'caption',
 	) );
 
+	/*
+	 * Enable support for Post Formats.
+	 *
+	 * See: https://codex.wordpress.org/Post_Formats
+	 */
+	add_theme_support( 'post-formats', array(
+		'aside',
+		'image',
+		'video',
+		'quote',
+		'link',
+		'status',
+		'audio',
+		'chat',
+	) );
+
 
 	/*
 	 * This theme styles the visual editor to resemble the theme style,
@@ -191,6 +207,60 @@ function twentysixteen_fonts_url() {
 endif;
 
 /**
+*
+* Create function to author biography
+*
+**/
+function wpb_author_info_box( $content ) {
+
+global $post;
+
+// Detect if it is a single post with a post author
+if ( is_single() && isset( $post->post_author ) ) {
+
+// Get author's display name
+$display_name = get_the_author_meta( 'display_name', $post->post_author );
+
+// If display name is not available then use nickname as display name
+if ( empty( $display_name ) )
+$display_name = get_the_author_meta( 'nickname', $post->post_author );
+
+// Get author's biographical information or description
+$user_description = get_the_author_meta( 'user_description', $post->post_author );
+
+// Get author's website URL
+//$user_website = get_the_author_meta('url', $post->post_author);
+
+// Get link to the author archive page
+$user_posts = get_author_posts_url( get_the_author_meta( 'ID' , $post->post_author));
+
+if ( ! empty( $display_name ) )
+
+//$author_details = '<p class="author_name">About ' . $display_name . '</p>';
+
+if ( ! empty( $user_description ) )
+// Author avatar and bio
+
+$author_details .= '<article class="author_details">';
+
+$author_details .= '<div class="author_avatar">' . get_avatar( get_the_author_meta('user_email') , 90 ) . '</div>';
+
+$author_details .= '<div class="author_content"><h3>About ' . $display_name . '</h3><blockquote class="text_author">' . nl2br( $user_description ). '</blockquote></div></article>';
+
+// Pass all this info to post content
+$content = $content . '<footer class="author_bio_section" >' . $author_details . '</footer>';
+}
+return $content;
+}
+
+// Add our function to the post content filter
+add_action( 'the_content', 'wpb_author_info_box' );
+
+// Allow HTML in author bio section
+remove_filter('pre_user_description', 'wp_filter_kses');
+
+
+/**
  * Register a Front Page custom.
  *
  */
@@ -218,6 +288,15 @@ add_filter('wp_nav_menu_objects', 'rel_to_absolute');
 function time_ago() {
 	return human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ).' '.__( 'ago' );
 }
+
+/*
+* Allow WP upload SVG
+*/
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
 
 /**
  * Handles JavaScript detection.
@@ -297,6 +376,10 @@ function twentysixteen_body_classes( $classes ) {
 	// Adds a class of hfeed to non-singular pages.
 	if ( ! is_singular() ) {
 		$classes[] = 'hfeed';
+	}
+
+	if ( ! is_home() ) {
+		$classes[] = 'internal-pages';
 	}
 
 	return $classes;

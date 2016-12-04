@@ -4,5 +4,7 @@
 /bower_components/
 /node_modules/
 /public_html/
+/theme/vendor/
+/theme/composer.lock
 .sass-cache
 error.log

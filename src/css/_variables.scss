@@ -11,6 +11,7 @@ $midlle_blue:    	#52bdec;
 $dark_blue:       #051821;
 $grey:            #6b6b6b;
 $light_grey:      #b6b6b6;
+$superlight_grey: #eeeeee;
 $green:           #9abf7f;
 $darkgreen:       #00aa5c;
 $red:     			  #b8242c;
@@ -22,6 +23,10 @@ $light_white:     #fafafa;
 $quite_white:   	#fbfbfb;
 $black:           #333333;
 $quite_black:     #999999;
+$color_face:      #297fb8;
+$color_twitter:   #3598dc;
+$color_linkedin:  #007bb6;
+$color_google:    #e84c3d;
 
 //Paddings
 $pad10:              10px;
@@ -34,6 +39,7 @@ $pad15_right:        15px;
 $pad15_left:         15px;
 $pad20:              20px;
 $pad20_0:            20px 0;
+$pad0_20:            0 20px;
 $pad20_right:        20px;
 $pad20_left:         20px;
 $pad25:              25px;
@@ -41,6 +47,7 @@ $pad25_0:            25px 0;
 $pad25_right:        25px;
 $pad25_left:         25px;
 $pad30:              30px;
+$pad30_0:            30px 0;
 
 //Margins
 $marg10:              10px;
@@ -56,3 +63,4 @@ $marg25:              25px;
 $marg25_0:            25px 0;
 $marg0_25:            0 25px;
 $marg30:              30px;
+$marg40:              40px;
