@@ -49,7 +49,7 @@
   		<a class="comment">
   		<span>COMMENT</span>
   	</a>
-  	<div class="share">
+  	<div class="lnk-share">
   		<span>SHARE</span>
   	</div>
   	</div>
@@ -79,6 +79,11 @@
 		<div class="sign-linkedin"><a href="#"><figure><img src="<?php echo esc_url( $img_likedin ); ?>" alt="Logo Linkedin"></figure><span>Sign in with <b>Linkedin</b></span></a></div>
 	</div>
 </div><!-- .Login -->
+<div class="overlay-search contentscale-search">
+	<div class="blk-search">
+    <?php get_search_form(); ?>
+	</div>
+</div><!-- .Search -->
 
 <?php wp_footer(); ?>
 </body>

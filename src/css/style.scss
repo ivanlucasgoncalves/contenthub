@@ -14,8 +14,9 @@
 // 11. Comments Area
 // 12. Secondary Menu
 // 13. Social Logins
-// 14. Taskbar Footer | Comments and Share
-// 15. Footer
+// 14. Search
+// 15. Taskbar Footer | Comments and Share
+// 16. Footer
 // 13. Responsive
 // 13. Responsive
 // =============================================================================
@@ -372,11 +373,12 @@ header {
   bottom: 20px;
   right: 20px;
   z-index: 9;
+  display: inline-flex;
+  align-items: center;
   a {
-    display: inline-block;
     opacity: 0;
     transition: all 0.2s ease-in-out;
-    margin-left: 22px;
+    margin-left: 12px;
     &:first-child {
       margin-left: 0px;
     }
@@ -522,6 +524,12 @@ article:hover .share a:hover {
   article:active .bottomBlue {
     transition: all 0.2s ease-in-out;
     height: 5px;
+  }
+  article:hover .posted {
+    span {
+      color: $white;
+      transition: all 0.25s ease-in-out;
+    }
   }
 }
 .post-categories {
@@ -1088,7 +1096,8 @@ section.internal-pages {
 // 12. Secondary Menu
 // =============================================================================
 .overlay-contentscale.open,
-.contentscale-login.open {
+.contentscale-login.open,
+.contentscale-search.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
   transform: translateY(0%);
@@ -1096,14 +1105,16 @@ section.internal-pages {
   transition: transform 0.5s;
 }
 .overlay-contentscale,
-.contentscale-login {
+.contentscale-login,
+.contentscale-search {
   visibility: hidden;
   -webkit-transform: translateY(100%);
   transform: translateY(100%);
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
 }
-.overlay-login {
+.overlay-login,
+.overlay-search {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1280,7 +1291,108 @@ section.internal-pages {
 }
 
 // =============================================================================
-// 14. Taskbar Footer | Comments and Share
+// 14. Search
+// =============================================================================
+.blk-search {
+  display: block;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: 120px;
+}
+
+// =============================================================================
+// 14. Related Posts
+// =============================================================================
+.related-posts {
+  padding: 30px 0 50px 0;
+  h2 {
+    text-align: center;
+    color: #4094b9;
+    font-size: 1.8em;
+    margin-bottom: 50px;
+  }
+  .content-related {
+    display: flex;
+    justify-content: space-around;
+    .article-top {
+      min-height: 260px;
+      width: 30.5%;
+      position: relative;
+      box-sizing: border-box;
+      transition: all 0.3s ease-in-out;
+      background-size: 100% 100%;
+      cursor: pointer;
+      .blk-info {
+        height: auto;
+        width: 75%;
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        bottom: 20px;
+        margin-left: 15px;
+        h3 {
+          transition: all 0.2s ease-in-out;
+          max-width: 100%;
+          color: $white;
+          font-weight: 700;
+          font-size: 1.4em;
+          line-height: 29px;
+          text-rendering: optimizeLegibility;
+          margin-bottom: 10px;
+        }
+        .post-format {
+          margin: 0;
+          color: $white;
+          font-size: 0.8em;
+          &::first-letter {
+            text-transform: uppercase;
+          }
+        }
+        .posted-by {
+          color: $light_grey;
+          font-weight: 300;
+          font-size: 0.8em;
+          font-style: italic;
+          margin: 0;
+        }
+      }
+      .gradient {
+        height: 100%;
+        width: 100%;
+        transition: all 0.25s ease-in-out;
+        background-size: 100% 100%;
+        /*background-image: url(../img/gradientFirst.png);
+        background-repeat: repeat-x;*/
+        background-color: rgba(0,2,3,0.25);
+      }
+      .bottomBlue {
+        height: 0px;
+        width: 100%;
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        bottom: 0px;
+        background-color: $midlle_blue;
+      }
+      &:hover .bottomBlue,
+      &:active .bottomBlue {
+        transition: all 0.2s ease-in-out;
+        height: 5px;
+      }
+      &:hover,
+      &:active {
+        transition: all 0.2s ease-in-out;
+        //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
+        .blk-info {
+          transition: all 0.2s ease-in-out;
+          bottom: 30px;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 15. Taskbar Footer | Comments and Share
 // =============================================================================
 .postActionsNav {
   height: 50px;
@@ -1330,7 +1442,7 @@ section.internal-pages {
       filter: alpha(opacity=90);
     }
   }
-  .share {
+  .lnk-share {
     height: 27px;
     width: 120px;
     box-sizing: border-box;

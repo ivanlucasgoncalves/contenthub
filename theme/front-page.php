@@ -11,7 +11,11 @@ foreach($terms as $term) {
 }*/
 get_header();
 $img_logo_facebook = get_theme_mod( 'img_logo_facebook', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook.svg' ) ); // Logo Facebook
-$img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook-black.svg' ) ); // Logo Facebook Black ?>
+$img_logo_twitter = get_theme_mod( 'img_logo_twitter', esc_url( get_template_directory_uri() . '/img/svg/lnk-twitter.svg' ) ); // Logo Twitter
+$img_logo_linkedin = get_theme_mod( '$img_logo_linkedin', esc_url( get_template_directory_uri() . '/img/svg/lnk-linkedin.svg' ) ); // Logo Linkedin
+$img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook-black.svg' ) ); // Logo Facebook Black
+$img_logo_twitter_black = get_theme_mod( 'img_logo_twitter_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-twitter-black.svg' ) ); // Logo Twiiter Black
+$img_logo_linkedin_black = get_theme_mod( 'img_logo_linkedin_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-linkedin-black.svg' ) ); // Logo Linkedin Black ?>
 
 	<main id="main" class="site-main" role="main">
     <section class="home-highlights">
@@ -29,7 +33,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 	           if( isset($sticky[0]) ) {
 	            while($loop->have_posts()) : $loop->the_post();
 								$categories = get_the_category();
-								$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+								// Social Medias
+								include 'template-parts/social-urls.php';
 								foreach ($categories as $categorie) {
 									$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $loop->ID ), 'large' );
 							    $category_id = get_cat_ID( 'highlights' );
@@ -40,12 +45,14 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 	              echo '<a class="category" href="' . esc_url( $category_link ) . '" title="'. esc_html( $categories[0]->name ) .'">'. esc_html( $categories[0]->name ) .'</a>';
 	              echo '<a href="'.get_permalink().'" class="lnk-post" title="'.get_the_title().'">';
 	              echo '<h2 class="title">'.get_the_title().'</h2>';
-	              echo '<p class="posted">' . esc_html( time_ago() ) . ' | by '.get_the_author_meta( "display_name" ).'</p>';
+	              echo '<p class="posted">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span></p>';
 	              echo '</a>';
 								echo '<div class="share">';
-								echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
-								echo '</div>';
+								echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+								echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+								echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
 	              echo '</div>';
+								echo '</div>';
 	              echo '<div class="gradient"></div>';
 	              echo '<div class="bottomBlue"></div>';
 	              echo '</article>';
@@ -59,12 +66,37 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
       <?php $quotes_day = new WP_Query( array(
         'post_type' => 'quote_of_the_day',
         'posts_per_page' => 1,	)); ?>
-      <?php while ( $quotes_day->have_posts() ) : $quotes_day->the_post(); ?>
-				<!-- get uri component representing this page -->
-				<?php $urlencoded_pageurl = urlencode(get_permalink( $post->ID ));
-				$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".$urlencoded_pageurl."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com"; ?>
+      <?php while ( $quotes_day->have_posts() ) : $quotes_day->the_post();
+				// Social urls
+				$urlencoded_pageurl = urlencode(get_permalink());
+				$urlencoded_title = urlencode(get_the_title());
+				$hash_tag = get_field('twitter_hashtag');
+				if (!$hash_tag) { // Hashtags Twitter
+					$post_tags = get_the_tags();
+					$hash_tag = isset($post_tags) && isset($post_tags[0]) ? $post_tags[0]->slug : '';
+				}
+				$hash_tag = urlencode(str_replace(' ', '', $hash_tag));
+				// Link Share Twitter
+				$facebook_link_atts = '
+					rel="nofollow"
+					target="_blank"
+					class="facebook"
+					title="Share article on Facebook"
+					href="https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='.$urlencoded_pageurl.'&amp;redirect_uri=https%3A%2F%2Ffacebook.com"
+				';
+				$twitter_link_atts = '
+					rel="nofollow"
+					target="_blank"
+					class="twitter"
+					title="Share article'. ($hash_tag ? ' and #'.$hash_tag : '').' on Twitter"
+					href="https://twitter.com/share?via='.'ContentHub&related=ContentHub'
+							.($hash_tag ? '&hashtags='.$hash_tag : '')
+							.'&text='.$urlencoded_title.'"
+				'; ?>
         <p><?php the_title(); ?></p>
-				<a href="<?php echo $facebook_link_atts ?>" class="facebook" title="Share ContentHub on Facebook"><img src="<?php echo $img_logo_facebook_black ?>" alt="Facebook" width="16px"></a>
+				<?php	echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook_black.'" alt="Facebook" width="13px"></a>';
+				echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter_black.'" alt="Twitter" width="27px"></a>';
+				echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin_black.'" alt="Linkedin" width="24px"></a>'; ?>
       <?php endwhile; ?>
     </section>
     <section class="post-categories">
@@ -83,7 +115,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 							echo '<article class="blk_categories">';
 						    while($post_first_cat->have_posts()) : $post_first_cat->the_post();
 									$categorie_first = get_the_category();
-									$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+									// Social Medias
+									include 'template-parts/social-urls.php';
 									foreach ($categorie_first as $categorie) {
 										$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_first_cat->ID ), 'large' );
 									}
@@ -98,8 +131,10 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 										echo '</div>';
 										echo '</a>';
 										echo '<div class="share">';
-										echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
-										echo '</div>';
+										echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+										echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+										echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
+			              echo '</div>';
 										echo '<div class="gradient"></div><div class="bottomBlue"></div>';
 										echo '</article>';
 									} else {
@@ -132,7 +167,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 	 						echo '<article class="blk_categories">';
 	 					    while($post_second_cat->have_posts()) : $post_second_cat->the_post();
 									$categorie_second = get_the_category();
-									$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+									// Social Medias
+									include 'template-parts/social-urls.php';
 									foreach ($categorie_second as $categorie) {
 										$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_second_cat->ID ), 'large' );
 									}
@@ -147,7 +183,9 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 										echo '</div>';
 	 									echo '</a>';
 										echo '<div class="share">';
-										echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
+										echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+										echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+										echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
 										echo '</div>';
 										echo '<div class="gradient"></div><div class="bottomBlue"></div>';
 	 									echo '</article>';
@@ -181,7 +219,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 								echo '<article class="blk_categories">';
 							    while($post_third_cat->have_posts()) : $post_third_cat->the_post();
 										$categorie_third = get_the_category();
-										$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+										// Social Medias
+										include 'template-parts/social-urls.php';
 										foreach ($categorie_third as $categorie) {
 											$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_third_cat->ID ), 'large' );
 										}
@@ -196,7 +235,9 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 											echo '</div>';
 											echo '</a>';
 											echo '<div class="share">';
-											echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
+											echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+											echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+											echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
 											echo '</div>';
 											echo '<div class="gradient"></div><div class="bottomBlue"></div>';
 											echo '</article>';
@@ -238,7 +279,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 								echo '<article class="blk_categories">';
 							    while($post_third_cat->have_posts()) : $post_third_cat->the_post();
 										$categorie_third = get_the_category();
-										$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+										// Social Medias
+										include 'template-parts/social-urls.php';
 										foreach ($categorie_third as $categorie) {
 											$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_third_cat->ID ), 'large' );
 										}
@@ -251,7 +293,9 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 										echo '</div>';
 										echo '</a>';
 										echo '<div class="share">';
-										echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
+										echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+										echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+										echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
 										echo '</div>';
 										echo '<div class="gradient"></div><div class="bottomBlue"></div>';
 										echo '</article>';
@@ -276,7 +320,8 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 								echo '<article class="blk_categories">';
 							    while($post_third_cat->have_posts()) : $post_third_cat->the_post();
 										$categorie_third = get_the_category();
-										$facebook_link_atts = "https://www.facebook.com/dialog/share?app_id=1219998328070399&amp;display=page&amp;href='".get_permalink()."'&amp;redirect_uri=https%3A%2F%2Ffacebook.com";
+										// Social Medias
+										include 'template-parts/social-urls.php';
 										foreach ($categorie_third as $categorie) {
 											$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_third_cat->ID ), 'large' );
 										}
@@ -290,7 +335,9 @@ $img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( ge
 											echo '</div>';
 											echo '</a>';
 											echo '<div class="share">';
-											echo '<a href="'.$facebook_link_atts.'" class="facebook" title="Share ContentHub on Facebook"><img src="'.$img_logo_facebook.'" alt="Facebook" width="16px"></a>';
+											echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+											echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+											echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
 											echo '</div>';
 											echo '<div class="gradient"></div><div class="bottomBlue"></div>';
 											echo '</article>';

@@ -23,6 +23,12 @@ jQuery( document ).ready( function($) {
 		$( 'body' ).toggleClass( "pos-fixed" );
 	});
 
+	/** Search **/
+	$( ".searchIcon" ).click(function() {
+	  $( '.overlay-search' ).toggleClass( "open" );
+		$( 'body' ).toggleClass( "pos-fixed" );
+	});
+
 	/** Progress Bar JS **/
 	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
