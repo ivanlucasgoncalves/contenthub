@@ -3,13 +3,18 @@
  * The template part for displaying content header for single pages
  *
  */
- 
+
  // Get the url from thumbnail
  $thumb_id = get_post_thumbnail_id();
  $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'full', true);
  $thumb_url = $thumb_url_array[0]; ?>
 
 <div class="internal-header" role="banner" style="background-image:url(<?php echo $thumb_url ?>);">
+
+  <?php // Getting the Featured Video
+  if ( has_post_format( 'video' ) ) {
+    twentysixteen_post_thumbnail(); } ?>
+
 	<div class="content-header">
 		<?php
 		// Category link
@@ -22,18 +27,36 @@
 		the_title( '<h1 class="entry-title">', '</h1>' );
 
     // Estimated Reading Time
-		echo '<i class="estimated-time">'.do_shortcode("[est_time]").' read</i>';
+    if ( has_post_format( 'video' ) ) {
+
+    } else {
+      echo '<i class="estimated-time">'.do_shortcode("[est_time]").' read</i>';
+    }
+
+
+    // If has Featured Video shows icon and text
+    if ( has_post_format( 'video' ) ) {
+      echo '<div class="play-button">';
+      echo '<img src="' . get_bloginfo( 'stylesheet_directory' )
+          . '/img/svg/play-button.svg" width="80" />';
+      echo '<span>Watch Video</span>';
+      echo '</div>';
+    }
 
     // Avatar Author
-		if ( 'post' === get_post_type() ) {
-			$author_avatar_size = apply_filters( 'twentysixteen_author_avatar_size', 49 );
-			printf( '<span class="author vcard">%1$s</span>',
-				get_avatar( get_the_author_meta( 'user_email' ), $author_avatar_size ),
-				_x( '', 'Used before post author name.', 'twentysixteen' ),
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				get_the_author()
-			);
-		}
+    if ( has_post_format( 'video' ) ) {
+
+    } else {
+      if ( 'post' === get_post_type() ) {
+  			$author_avatar_size = apply_filters( 'twentysixteen_author_avatar_size', 49 );
+  			printf( '<span class="author vcard">%1$s</span>',
+  				get_avatar( get_the_author_meta( 'user_email' ), $author_avatar_size ),
+  				_x( '', 'Used before post author name.', 'twentysixteen' ),
+  				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+  				get_the_author()
+  			);
+  		}
+    }
 
     // Info from the Post | Name and Date
 		if ( 'post' === get_post_type() ) {

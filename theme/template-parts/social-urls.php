@@ -1,6 +1,13 @@
 <?php
 /**
-*** The template part for socials urls **/ ?>
+*** The template part for socials urls **/
+
+$img_logo_facebook = get_theme_mod( 'img_logo_facebook', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook.svg' ) ); // Logo Facebook
+$img_logo_twitter = get_theme_mod( 'img_logo_twitter', esc_url( get_template_directory_uri() . '/img/svg/lnk-twitter.svg' ) ); // Logo Twitter
+$img_logo_linkedin = get_theme_mod( '$img_logo_linkedin', esc_url( get_template_directory_uri() . '/img/svg/lnk-linkedin.svg' ) ); // Logo Linkedin
+$img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook-black.svg' ) ); // Logo Facebook Black
+$img_logo_twitter_black = get_theme_mod( 'img_logo_twitter_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-twitter-black.svg' ) ); // Logo Twiiter Black
+$img_logo_linkedin_black = get_theme_mod( 'img_logo_linkedin_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-linkedin-black.svg' ) ); // Logo Linkedin Black ?>
 
 <?php	// Social urls
 	$urlencoded_siteurl = get_site_url();

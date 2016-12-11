@@ -2,48 +2,19 @@
 /**
  * The template part for displaying results in search pages
  *
- */
-?>
+ */// Get the url from thumbnail
+ $thumb_id = get_post_thumbnail_id();
+ $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'full', true);
+ $thumb_url = $thumb_url_array[0]; ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-	</header><!-- .entry-header -->
-
-	<?php twentysixteen_post_thumbnail(); ?>
-
-	<?php twentysixteen_excerpt(); ?>
-
-	<?php if ( 'post' === get_post_type() ) : ?>
-
-		<footer class="entry-footer">
-			<?php twentysixteen_entry_meta(); ?>
-			<?php
-				edit_post_link(
-					sprintf(
-						/* translators: %s: Name of current post */
-						__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-						get_the_title()
-					),
-					'<span class="edit-link">',
-					'</span>'
-				);
-			?>
-		</footer><!-- .entry-footer -->
-
-	<?php else : ?>
-
-		<?php
-			edit_post_link(
-				sprintf(
-					/* translators: %s: Name of current post */
-					__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-					get_the_title()
-				),
-				'<footer class="entry-footer"><span class="edit-link">',
-				'</span></footer><!-- .entry-footer -->'
-			);
-		?>
-
-	<?php endif; ?>
+  <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php echo get_the_title(); ?>">
+    <img src="<?php echo $thumb_url ?>" alt="<?php echo get_the_title(); ?>"><!-- .post.image -->
+    <div class="entry-content">
+      <?php $categories = get_the_category();
+      echo '<h5>'. esc_html( $categories[0]->name ) .'</h5>' ?>
+      <h4><?php the_title(); ?></h4>
+      <?php echo '<i class="posted-by">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span> - <span class="estimated-time">'.do_shortcode("[est_time]").' read</span></i>'; ?>
+    </div><!-- .entry-content -->
+  </a>
 </article><!-- #post-## -->

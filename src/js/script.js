@@ -2,7 +2,6 @@
 *	jQuery Document Ready
 */
 
-
 jQuery( document ).ready( function($) {
 
 	/** AddClass for every single img for avoiding mistakes **/
@@ -25,8 +24,30 @@ jQuery( document ).ready( function($) {
 
 	/** Search **/
 	$( ".searchIcon" ).click(function() {
-	  $( '.overlay-search' ).toggleClass( "open" );
-		$( 'body' ).toggleClass( "pos-fixed" );
+	  $( '.overlay-search' ).addClass( "open" );
+		$( 'body' ).addClass( "pos-fixed" );
+	});
+	$( ".close-search" ).click(function() {
+	  $( '.overlay-search' ).removeClass( "open" );
+		$( 'body' ).removeClass( "pos-fixed" );
+	});
+
+	// Smooth Scroll Anchors
+	$('a[href*="#"]:not([href="#"])').on('click', function() {
+		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+			if (target.length) {
+				$('html,body').animate({
+					scrollTop: target.offset().top
+				}, 1000, function() {
+					$('header').removeClass('appear').addClass('disappear');
+		      $('.postActionsNav').removeClass('navAppear').addClass('navDisappear');
+					$('.progress-container').css('top', '0px');
+			  });
+				return false;
+			}
+		}
 	});
 
 	/** Progress Bar JS **/
@@ -135,5 +156,35 @@ jQuery( document ).ready( function($) {
     lastScrollTop = st;
 	}
 
-
 }); /* Close Document Ready */
+
+
+/**
+** Search AJAX **
+**/
+jQuery(document).on( 'submit', '.search-form', function() {
+    var $form = jQuery(this);
+    var $input = $form.find('input[name="s"]');
+    var query = $input.val();
+    var $content = jQuery('#content-search_results');
+		jQuery("#loader").show();
+
+    jQuery.ajax({
+        type: "post",
+        url : ajaxurl,
+        data : {
+            action : 'load_search_results',
+            query : query
+        },
+        beforeSend: function() {
+            $input.prop('disabled', true);
+        },
+        success : function( response ) {
+            $input.prop('disabled', false);
+						jQuery("#loader").hide();
+            $content.html( response );
+        }
+    });
+
+    return false;
+});

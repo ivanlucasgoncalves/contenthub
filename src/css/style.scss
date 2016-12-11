@@ -73,7 +73,7 @@ header {
   height: 60px;
   position: fixed;
   top: 0px;
-  z-index: 9999;
+  z-index: 9;
   .site-header-main {
     display: flex;
     justify-content: space-between;
@@ -281,14 +281,14 @@ header {
   background-attachment: fixed;
   position: relative;
   .content-header {
-    padding-top: 150px;
+    padding-top: 120px;
     max-width: 1640px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: 1;
     h1 {
-      max-width: 45%;
+      max-width: 55%;
       margin: 0 auto;
       font-size: 3.5em;
       line-height: 1.2em;
@@ -353,6 +353,7 @@ header {
   height: 5px;
   display: block;
   z-index: 999;
+  overflow: hidden;
   .progressBar {
     width: 0%;
     height: 5px;
@@ -370,9 +371,9 @@ header {
 .share {
   position: absolute;
   transition: all 0.3s ease-in-out;
-  bottom: 20px;
+  bottom: 30px;
   right: 20px;
-  z-index: 9;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   a {
@@ -384,13 +385,15 @@ header {
     }
   }
 }
-article:hover .share a {
+article.article-top:hover .share a,
+.article-info:hover .share a {
   transition: all 0.2s ease-in-out;
   opacity: 0.6;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
   filter: alpha(opacity=60);
 }
-article:hover .share a:hover {
+article.article-top:hover .share a:hover,
+.article-info:hover .share a:hover {
   transition: all 0.2s ease-in-out;
   opacity: 1;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=1);
@@ -402,7 +405,7 @@ article:hover .share a:hover {
   width: 100%;
   margin-top: 60px;
   .blk_0 {
-    height: 500px;
+    height: 600px;
     width: 60%;
     h2 {
       max-width: 50%;
@@ -414,7 +417,7 @@ article:hover .share a:hover {
     }
   }
   .blk_1 {
-    height: 250px;
+    height: 300px;
     width: 40%;
     h2 {
       max-width: 70%;
@@ -426,7 +429,7 @@ article:hover .share a:hover {
     }
   }
   .blk_2 {
-    height: 250px;
+    height: 300px;
     width: 40%;
     z-index: 0;
     h2 {
@@ -492,6 +495,9 @@ article:hover .share a:hover {
         left: 20px;
         margin: 0;
       }
+      .share {
+        bottom: 20px;
+      }
     }
     .gradient {
       height: 100%;
@@ -516,7 +522,7 @@ article:hover .share a:hover {
       //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
       .article-info {
         transition: all 0.2s ease-in-out;
-        bottom: 30px;
+        bottom: 20px;
       }
     }
   }
@@ -554,79 +560,6 @@ article:hover .share a:hover {
         background: $blue;
         top: 0;
         width: 10%;
-      }
-    }
-    .article-top {
-      height: 260px;
-      width: 100%;
-      position: relative;
-      box-sizing: border-box;
-      transition: all 0.3s ease-in-out;
-      background-size: 100% 100%;
-      cursor: pointer;
-      .blk-info {
-        height: auto;
-        width: 90%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 20px;
-        margin-left: 15px;
-        h3 {
-          transition: all 0.2s ease-in-out;
-          max-width: 100%;
-          color: $white;
-          font-weight: 700;
-          font-size: 1.4em;
-          line-height: 29px;
-          text-rendering: optimizeLegibility;
-          margin-bottom: 10px;
-        }
-        .post-format {
-          margin: 0;
-          color: $white;
-          font-size: 0.8em;
-          &::first-letter {
-            text-transform: uppercase;
-          }
-        }
-        .posted-by {
-          color: $light_grey;
-          font-weight: 300;
-          font-size: 0.8em;
-          font-style: italic;
-          margin: 0;
-        }
-      }
-      .gradient {
-        height: 100%;
-        width: 100%;
-        transition: all 0.25s ease-in-out;
-        background-size: 100% 100%;
-        /*background-image: url(../img/gradientFirst.png);
-        background-repeat: repeat-x;*/
-        background-color: rgba(0, 2, 3, 0.25);
-      }
-      .bottomBlue {
-        height: 0px;
-        width: 100%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 0px;
-        background-color: $midlle_blue;
-      }
-      &:hover .bottomBlue,
-      &:active .bottomBlue {
-        transition: all 0.2s ease-in-out;
-        height: 5px;
-      }
-      &:hover,
-      &:active {
-        transition: all 0.2s ease-in-out;
-        //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
-        .blk-info {
-          transition: all 0.2s ease-in-out;
-          bottom: 30px;
-        }
       }
     }
     .article-bottom {
@@ -719,79 +652,6 @@ article:hover .share a:hover {
           width: 10%;
         }
       }
-      .article-top {
-        height: 260px;
-        width: 100%;
-        position: relative;
-        box-sizing: border-box;
-        transition: all 0.3s ease-in-out;
-        background-size: 100% 100%;
-        cursor: pointer;
-        .blk-info {
-          height: auto;
-          width: 90%;
-          position: absolute;
-          transition: all 0.2s ease-in-out;
-          bottom: 20px;
-          margin-left: 15px;
-          h3 {
-            transition: all 0.2s ease-in-out;
-            max-width: 100%;
-            color: $white;
-            font-weight: 700;
-            font-size: 1.4em;
-            line-height: 29px;
-            text-rendering: optimizeLegibility;
-            margin-bottom: 10px;
-          }
-          .post-format {
-            margin: 0;
-            color: $white;
-            font-size: 0.8em;
-            &::first-letter {
-              text-transform: uppercase;
-            }
-          }
-          .posted-by {
-            color: $light_grey;
-            font-weight: 300;
-            font-size: 0.8em;
-            font-style: italic;
-            margin: 0;
-          }
-        }
-        .gradient {
-          height: 100%;
-          width: 100%;
-          transition: all 0.25s ease-in-out;
-          background-size: 100% 100%;
-          /*background-image: url(../img/gradientFirst.png);
-          background-repeat: repeat-x;*/
-          background-color: rgba(0,2,3,0.25);
-        }
-        .bottomBlue {
-          height: 0px;
-          width: 100%;
-          position: absolute;
-          transition: all 0.2s ease-in-out;
-          bottom: 0px;
-          background-color: $midlle_blue;
-        }
-        &:hover .bottomBlue,
-        &:active .bottomBlue {
-          transition: all 0.2s ease-in-out;
-          height: 5px;
-        }
-        &:hover,
-        &:active {
-          transition: all 0.2s ease-in-out;
-          //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
-          .blk-info {
-            transition: all 0.2s ease-in-out;
-            bottom: 30px;
-          }
-        }
-      }
       .article-bottom {
         padding: $pad10_0;
         border-bottom: 1px solid #e1e1e1;
@@ -868,6 +728,146 @@ article:hover .share a:hover {
       bottom: 0;
     }
   }
+  .blk-share {
+    margin-top: $marg10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      margin: $marg0_10;
+      img {
+        opacity: 0.2;
+      }
+      &:hover img {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 8. Article Posts Style for every each content
+// =============================================================================
+.article-top {
+  min-height: 260px;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  a.lnk-content-post {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .blk-info {
+      height: auto;
+      width: 70%;
+      position: absolute;
+      transition: all 0.2s ease-in-out;
+      bottom: 20px;
+      margin-left: 15px;
+      h3 {
+        transition: all 0.2s ease-in-out;
+        max-width: 100%;
+        color: $white;
+        font-weight: 700;
+        font-size: 1.4em;
+        line-height: 29px;
+        text-rendering: optimizeLegibility;
+        margin-bottom: 10px;
+      }
+      .post-format {
+        margin: 0;
+        color: $white;
+        font-size: 0.8em;
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+      .posted-by {
+        color: $light_grey;
+        font-weight: 300;
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0;
+      }
+    }
+    &:hover,
+    &:active {
+      transition: all 0.2s ease-in-out;
+      //box-shadow: 0px 30px 30px 0px rgba(0, 2, 3, 0.25);
+      .blk-info {
+        transition: all 0.2s ease-in-out;
+        bottom: 30px;
+      }
+    }
+    &:hover .posted-by {
+      span {
+        color: $white;
+        transition: all 0.25s ease-in-out;
+      }
+    }
+  }
+  .gradient {
+    height: 100%;
+    width: 100%;
+    transition: all 0.25s ease-in-out;
+    background-size: 100% 100%;
+    background-color: rgba(0,2,3,0.25);
+  }
+  .bottomBlue {
+    height: 0px;
+    width: 100%;
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+    bottom: 0px;
+    background-color: $midlle_blue;
+  }
+  &:hover .bottomBlue,
+  &:active .bottomBlue {
+    transition: all 0.2s ease-in-out;
+    height: 5px;
+  }
+}
+
+// =============================================================================
+// 08. Video Post Thumbnail
+// =============================================================================
+.post-thumbnail {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  overflow: hidden;
+  .fvp-overlay, .fvp-dynamic {
+    height: 100%;
+  }
+  .wp-post-image {
+    display: none;
+    visibility: hidden;
+  }
+}
+.fluid-width-video-wrapper {
+  position: initial !important;
+}
+.play-button {
+  margin-top: $marg40;
+  margin-bottom: $marg40;
+  transition: all 0.2s ease-in-out;
+  span {
+    font-size: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: $white;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: $marg10;
+  }
+}
+.play-button:hover img {
+  border: 1px solid red;
 }
 
 // =============================================================================
@@ -884,12 +884,25 @@ section.internal-pages {
       padding: $pad30_0;
       width: 100%;
       margin: 0 auto;
+      .medias-links {
+        display: flex;
+        align-items: center;
+        padding-top: $pad30;
+        a {
+          margin-right: $marg10;
+          opacity: 0.4;
+        }
+      }
       p {
         font-weight: 300;
         font-size: 1.25em;
         color: #111;
         line-height: 1.55em;
         margin-bottom: 30px;
+      }
+      .p-tags {
+        font-size: 1.05em;
+        margin: 0;
       }
     }
   }
@@ -899,9 +912,11 @@ section.internal-pages {
 // 10. Author Biograph Section
 // =============================================================================
 .author_bio_section {
+  border-top: 1px solid $superlight_grey;
   .author_details {
     display: flex;
     justify-content: space-between;
+    padding: 30px 0 45px 0;
     .author_avatar {
       width: 15%;
       padding-right: $pad20;
@@ -1120,8 +1135,13 @@ section.internal-pages {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.93);
+  background: rgba(255, 255, 255, 1);
+}
+.overlay-login {
+  z-index: 3;
+}
+.overlay-search {
+  z-index: 9;
 }
 .overlay {
   position: fixed;
@@ -1130,7 +1150,7 @@ section.internal-pages {
   top: 0;
   left: 0;
   background: rgba(44, 89, 109, 0.93);
-  z-index: 2;
+  z-index: 3;
   nav {
     text-align: center;
     position: relative;
@@ -1291,15 +1311,174 @@ section.internal-pages {
 }
 
 // =============================================================================
-// 14. Search
+// 15. Search Page
 // =============================================================================
 .blk-search {
-  display: block;
-  width: 100%;
-  max-width: 980px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding-top: 120px;
+  padding: 60px 40px 30px 40px;
+  position: relative;
+  .logo_hub {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+  }
+  .close-search {
+    font-size: 2.5em;
+    color: $grey;
+    position: absolute;
+    top: 5px;
+    right: 40px;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .content-form_search {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    .search-form {
+      width: 67%;
+      padding-right: 80px;
+      input {
+        background: none;
+        border: 0;
+        width: 100%;
+        font-size: 3.5em;
+        opacity: 0.5;
+        font-weight: 800;
+        text-align: center;
+        border-bottom: 1px solid $light_blue;
+        color: $blue;
+        outline: 0;
+        &:focus {
+          border-bottom: 1px solid $blue;
+          opacity: 1;
+          color: $blue;
+        }
+      }
+      input:focus::-webkit-input-placeholder {
+        color: $blue;
+      }
+      input:focus::-moz-placeholder {
+        color: $blue;
+      }
+      input:focus:-ms-input-placeholder {
+        color: $blue;
+      }
+      input:focus:-moz-placeholder {
+        color: $blue;
+      }
+      input::-webkit-input-placeholder {
+        color: $light_blue;
+      }
+      input::-moz-placeholder {
+        color: $light_blue;
+      }
+      input:-ms-input-placeholder {
+        color: $light_blue;
+      }
+      input:-moz-placeholder {
+        color: $light_blue;
+      }
+      input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px white inset;
+        color: $blue;
+      }
+    }
+  }
+  .content-categories_searchresults {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: $marg40;
+    aside.side-categories {
+      width: 17%;
+      color: $grey;
+      h4 {
+        font-size: 1.4em;
+        position: relative;
+        padding-bottom: $pad10;
+        margin-bottom: $marg20;
+        &:after {
+          content: "";
+          position: absolute;
+          height: 5px;
+          background: $grey;
+          bottom: 0;
+          left: 0;
+          width: 15%;
+        }
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          border-bottom: 1px solid $light_grey;
+          a {
+            color: $light_grey;
+            font-size: 1.1em;
+            display: block;
+            padding: $pad15_0;
+            &:hover {
+              color: $grey;
+            }
+          }
+        }
+      }
+    }
+    section.content-search {
+      width: 83%;
+      display: flex;
+      justify-content: flex-end;
+      #content-search_results {
+        width: 80.7229%;
+        padding-right: 80px;
+        article {
+          margin-bottom: $marg30;
+          a {
+            display: flex;
+            align-items: center;
+            img {
+              width: 12%;
+              height: 100px;
+              object-fit: cover;
+            }
+            .entry-content {
+              width: 70%;
+              padding-left: $pad15;
+              h4 {
+                font-size: 1.4em;
+                transition: all 0.1s ease-in-out;
+                color: $blue;
+                line-height: 1.3em;
+              }
+              h5 {
+                font-size: 0.85em;
+                font-weight: 400;
+                color: $dark_blue;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-top: 12px;
+                margin-bottom: 5px;
+              }
+              .posted-by {
+                color: $grey;
+                font-weight: 300;
+                font-size: 0.9em;
+                font-style: italic;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
 }
+
 
 // =============================================================================
 // 14. Related Posts
@@ -1315,81 +1494,13 @@ section.internal-pages {
   .content-related {
     display: flex;
     justify-content: space-around;
-    .article-top {
-      min-height: 260px;
-      width: 30.5%;
+    .blk_categories_related {
       position: relative;
-      box-sizing: border-box;
-      transition: all 0.3s ease-in-out;
-      background-size: 100% 100%;
-      cursor: pointer;
-      .blk-info {
-        height: auto;
-        width: 75%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 20px;
-        margin-left: 15px;
-        h3 {
-          transition: all 0.2s ease-in-out;
-          max-width: 100%;
-          color: $white;
-          font-weight: 700;
-          font-size: 1.4em;
-          line-height: 29px;
-          text-rendering: optimizeLegibility;
-          margin-bottom: 10px;
-        }
-        .post-format {
-          margin: 0;
-          color: $white;
-          font-size: 0.8em;
-          &::first-letter {
-            text-transform: uppercase;
-          }
-        }
-        .posted-by {
-          color: $light_grey;
-          font-weight: 300;
-          font-size: 0.8em;
-          font-style: italic;
-          margin: 0;
-        }
-      }
-      .gradient {
-        height: 100%;
-        width: 100%;
-        transition: all 0.25s ease-in-out;
-        background-size: 100% 100%;
-        /*background-image: url(../img/gradientFirst.png);
-        background-repeat: repeat-x;*/
-        background-color: rgba(0,2,3,0.25);
-      }
-      .bottomBlue {
-        height: 0px;
-        width: 100%;
-        position: absolute;
-        transition: all 0.2s ease-in-out;
-        bottom: 0px;
-        background-color: $midlle_blue;
-      }
-      &:hover .bottomBlue,
-      &:active .bottomBlue {
-        transition: all 0.2s ease-in-out;
-        height: 5px;
-      }
-      &:hover,
-      &:active {
-        transition: all 0.2s ease-in-out;
-        //box-shadow: 0px 50px 50px 0px rgba(0, 2, 3, 0.25);
-        .blk-info {
-          transition: all 0.2s ease-in-out;
-          bottom: 30px;
-        }
-      }
+      width: 30.5%;
     }
   }
 }
+
 
 // =============================================================================
 // 15. Taskbar Footer | Comments and Share
@@ -1404,39 +1515,37 @@ section.internal-pages {
   zoom: 1;
   padding-top: 12px;
   bottom: -50px !important;
-  background: #FFF;
+  background: $white;
   border-top: 1px solid #F9F9F9;
+  z-index: 99;
   .centralize {
     height: auto;
-    width: 60%;
+    width: 40%;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
   }
   .comment {
     height: 27px;
-    width: 120px;
     box-sizing: border-box;
     float: left;
-    -webkit-opacity: 0.5;
-    -khtml-opacity: 0.5;
-    -moz-opacity: 0.5;
     opacity: 0.5;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
     filter: alpha(opacity=50);
     transition: all 0.1s ease-in-out;
-    color: #333;
+    color: $black;
     padding-left: 38px;
     line-height: 30px;
+    text-transform: uppercase;
     font-size: 0.9em;
     font-weight: 400;
+    background-image: url('../img/svg/speech-bubble-outline.svg');
     background-position: left;
     background-repeat: no-repeat;
     background-size: contain;
     &:hover,
     &:active {
       transition: all 0.1s ease-in-out;
-      -webkit-opacity: 0.9;
-      -khtml-opacity: 0.9;
-      -moz-opacity: 0.9;
       opacity: 0.9;
       -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
       filter: alpha(opacity=90);
@@ -1444,26 +1553,22 @@ section.internal-pages {
   }
   .lnk-share {
     height: 27px;
-    width: 120px;
     box-sizing: border-box;
     float: right;
-    -webkit-opacity: 0.5;
-    -khtml-opacity: 0.5;
-    -moz-opacity: 0.5;
     opacity: 0.5;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
     filter: alpha(opacity=50);
     transition: all 0.1s ease-in-out;
-    color: #333;
-    line-height: 30px;
-    font-size: 0.9em;
-    font-weight: 400;
+    a {
+      color: $black;
+      text-transform: uppercase;
+      line-height: 30px;
+      font-size: 0.9em;
+      font-weight: 400;
+    }
     &:hover,
     &:active {
       transition: all 0.1s ease-in-out;
-      -webkit-opacity: 0.9;
-      -khtml-opacity: 0.9;
-      -moz-opacity: 0.9;
       opacity: 0.9;
       -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
       filter: alpha(opacity=90);
@@ -1496,21 +1601,12 @@ footer.site-footer {
       a {
         height: 35px;
         width: 35px;
-        -webkit-transition: all 0.05s ease-in-out;
-        -moz-transition: all 0.05s ease-in-out;
-        -o-transition: all 0.05s ease-in-out;
         transition: all 0.05s ease-in-out;
         display: inline-block;
         background-size: cover;
         &:hover,
         &:active {
-          -webkit-transition: all 0.05s ease-in-out;
-          -moz-transition: all 0.05s ease-in-out;
-          -o-transition: all 0.05s ease-in-out;
           transition: all 0.05s ease-in-out;
-          -webkit-opacity: 0.7;
-          -khtml-opacity: 0.7;
-          -moz-opacity: 0.7;
           opacity: 0.7;
           -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
           filter: alpha(opacity=70);

@@ -18,12 +18,11 @@
  $permissions = ['email']; // Optional permissions
  $loginUrl = $helper->getLoginUrl('http://10.1.1.54:8789/contentHub/theme/social-logins/fb-callback.php', $permissions);*/
 
-
+$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.jpg' ) ); // Logo Facebook
  $img_facebook = get_theme_mod( 'img_facebook', esc_url( get_template_directory_uri() . '/img/svg/facebookWhite.svg' ) ); // Logo Facebook
  $img_twitter = get_theme_mod( 'img_twitter', esc_url( get_template_directory_uri() . '/img/svg/twitterWhite.svg' ) ); // Logo Twitter
  $img_google = get_theme_mod( 'img_google', esc_url( get_template_directory_uri() . '/img/svg/googleWhite.svg' ) ); // Logo Google+
- $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri() . '/img/svg/linkedinWhite.svg' ) ); // Logo Linkedin
-?>
+ $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri() . '/img/svg/linkedinWhite.svg' ) ); // Logo Linkedin ?>
 
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="content">
@@ -46,11 +45,13 @@
 <?php if(!(is_home() && is_front_page())) :?>
   <div class="postActionsNav navDisappear">
   	<div class="centralize">
-  		<a class="comment">
-  		<span>COMMENT</span>
-  	</a>
+      <a class="comment" href="#comments" title="Comment article">
+        <span>Comment</span>
+      </a>
   	<div class="lnk-share">
-  		<span>SHARE</span>
+      <a href="#social-shares" title="Share article">
+        <span>Share</span>
+      </a>
   	</div>
   	</div>
   </div>
@@ -81,7 +82,37 @@
 </div><!-- .Login -->
 <div class="overlay-search contentscale-search">
 	<div class="blk-search">
+    <figure class="logo_hub"><img src="<?php echo esc_url( $img_logo_hub ); ?>" alt="Logo ContentHub"></figure>
+    <a href="javascript:void(0);" class="close-search">X</a>
     <?php get_search_form(); ?>
+    <div class="content-categories_searchresults">
+      <aside class="side-categories">
+        <h4>Categories</h4>
+        <ul>
+          <?php $categories = get_categories( array(
+              'orderby' => 'name',
+              'order'   => 'ASC'
+          ));
+          foreach( $categories as $category ) {
+            $category_link = sprintf(
+                '<a href="%1$s" title="%2$s">%3$s</a>',
+                esc_url( get_category_link( $category->term_id ) ),
+                esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ),
+                esc_html( $category->name )
+            );
+
+            echo '<li>' . sprintf( esc_html__( '%s', 'textdomain' ), $category_link ) . '</li> ';} ?>
+        </ul>
+      </aside>
+      <section class="content-search">
+        <div id="content-search_results">
+          <div id="loader" class="la-ball-spin-rotate la-2x">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+    </div>
 	</div>
 </div><!-- .Search -->
 

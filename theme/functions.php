@@ -1,95 +1,36 @@
 <?php
 /**
- * Twenty Sixteen functions and definitions
- *
- * Set up the theme and provides some helper functions, which are used in the
- * theme as custom template tags. Others are attached to action and filter
- * hooks in WordPress to change core functionality.
- *
- * When using a child theme you can override certain functions (those wrapped
- * in a function_exists() call) by defining them first in your child theme's
- * functions.php file. The child theme's functions.php file is included before
- * the parent theme's file, so the child theme functions would be used.
- *
- * @link https://codex.wordpress.org/Theme_Development
- * @link https://codex.wordpress.org/Child_Themes
- *
- * Functions that are not pluggable (not wrapped in function_exists()) are
- * instead attached to a filter or action hook.
- *
- * For more information on hooks, actions, and filters,
- * {@link https://codex.wordpress.org/Plugin_API}
- */
-
-/**
- * Twenty Sixteen only works in WordPress 4.4 or later.
- */
+** iRecruit Theme only works in WordPress 4.4 or later **/
 if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
 }
 
 if ( ! function_exists( 'twentysixteen_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- *
- * Create your own twentysixteen_setup() function to override in a child theme.
- *
- * @since Twenty Sixteen 1.0
- */
 function twentysixteen_setup() {
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed at WordPress.org. See: https://translate.wordpress.org/projects/wp-themes/twentysixteen
-	 * If you're building a theme based on Twenty Sixteen, use a find and replace
-	 * to change 'twentysixteen' to the name of your theme in all the template files
-	 */
+
 	load_theme_textdomain( 'twentysixteen' );
-
-	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
 	add_theme_support( 'title-tag' );
 
-	/*
-	 * Enable support for custom logo.
-	 *
-	 *  @since Twenty Sixteen 1.2
-	 */
+	/** Enable support for custom logo **/
 	add_theme_support( 'custom-logo', array(
 		'height'      => 240,
 		'width'       => 240,
 		'flex-height' => true,
 	) );
 
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
-	 */
+	/** Enable support for Post Thumbnails on posts and pages **/
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 1200, 9999 );
 
-	// This theme uses wp_nav_menu() in two locations.
+	/** This theme uses wp_nav_menu() in two locations **/
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'twentysixteen' ),
 		'secondary'  => __( 'Secondary Menu', 'twentysixteen' ),
 		'social'  => __( 'Social Links Menu', 'twentysixteen' ),
 	) );
 
-	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
+	/** Switch default core markup for search form, comment form, and comments to output valid HTML5 **/
 	add_theme_support( 'html5', array(
 		'search-form',
 		'comment-form',
@@ -98,11 +39,7 @@ function twentysixteen_setup() {
 		'caption',
 	) );
 
-	/*
-	 * Enable support for Post Formats.
-	 *
-	 * See: https://codex.wordpress.org/Post_Formats
-	 */
+	/** Enable support for Post Formats **/
 	add_theme_support( 'post-formats', array(
 		'aside',
 		'image',
@@ -114,11 +51,8 @@ function twentysixteen_setup() {
 		'chat',
 	) );
 
-
-	/*
-	 * This theme styles the visual editor to resemble the theme style,
-	 * specifically font, colors, icons, and column width.
-	 */
+	/** This theme styles the visual editor to resemble the theme style,
+	 * specifically font, colors, icons, and column width **/
 	add_editor_style( array( 'css/editor-style.css', twentysixteen_fonts_url() ) );
 
 	// Indicate widget sidebars can use selective refresh in the Customizer.
@@ -127,14 +61,10 @@ function twentysixteen_setup() {
 endif; // twentysixteen_setup
 add_action( 'after_setup_theme', 'twentysixteen_setup' );
 
+
 /**
  * Sets the content width in pixels, based on the theme's design and stylesheet.
- *
  * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
- *
- * @since Twenty Sixteen 1.0
  */
 function twentysixteen_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'twentysixteen_content_width', 840 );
@@ -142,52 +72,72 @@ function twentysixteen_content_width() {
 add_action( 'after_setup_theme', 'twentysixteen_content_width', 0 );
 
 /**
- * Registers a widget area.
- *
- * @link https://developer.wordpress.org/reference/functions/register_sidebar/
- *
- * @since Twenty Sixteen 1.0
- */
+** Search AJAX Page **/
+function load_search_results() {
+    $query = $_POST['query'];
+
+    $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+				'public' => true,
+        's' => $query,
+    );
+    $search = new WP_Query( $args );
+
+    ob_start();
+
+    if ( $search->have_posts() ) : ?>
+			<?php
+				while ( $search->have_posts() ) : $search->the_post();
+					get_template_part( 'template-parts/content', 'search' );
+				endwhile;
+			else :
+			echo '<p>Sorry, It seems we can’t find what you’re looking for.</p>';
+		endif;
+
+	$content = ob_get_clean();
+
+	echo $content;
+	die();
+}
+add_action( 'wp_ajax_load_search_results', 'load_search_results' );
+add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
+
+/**
+** Registers a widget area **/
 function twentysixteen_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'twentysixteen' ),
-		'id'            => 'sidebar-1',
-		'description'   => __( 'Add widgets here to appear in your sidebar.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
-
-	register_sidebar( array(
-		'name'          => __( 'Content Bottom 1', 'twentysixteen' ),
+		'name'          => __( 'Post Categories', 'twentysixteen' ),
 		'id'            => 'sidebar-2',
-		'description'   => __( 'Appears at the bottom of the content on posts and pages.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'description'   => __( 'Appears at the front page of the post categories.', 'twentysixteen' ),
+		'before_widget' => '<section id="%1$s" class="blk_categories %2$s">',
+    'after_widget'  => '</section>',
 	) );
 
 	register_sidebar( array(
-		'name'          => __( 'Content Bottom 2', 'twentysixteen' ),
+		'name'          => __( 'Featured Posts', 'twentysixteen' ),
 		'id'            => 'sidebar-3',
-		'description'   => __( 'Appears at the bottom of the content on posts and pages.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'description'   => __( 'Appears at the front page of the featured posts.', 'twentysixteen' ),
+		'before_widget' => '<article id="%1$s" class="blk_categories %2$s">',
+    'after_widget'  => '</article>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Featured HighPost', 'twentysixteen' ),
+		'id'            => 'sidebar-4',
+		'description'   => __( 'Appears at the front page of the featured highpost.', 'twentysixteen' ),
+		'before_widget' => '<article id="%1$s" class="blk_categories %2$s">',
+    'after_widget'  => '</article>',
 	) );
 }
 add_action( 'widgets_init', 'twentysixteen_widgets_init' );
 
-if ( ! function_exists( 'twentysixteen_fonts_url' ) ) :
+
 /**
- * Register Google fonts for Twenty Sixteen.
- *
- * Create your own twentysixteen_fonts_url() function to override in a child theme.
- *
- */
+** Register Google fonts for Twenty Sixteen.
+** Create your own twentysixteen_fonts_url() function to override in a child theme **/
+if ( ! function_exists( 'twentysixteen_fonts_url' ) ) :
+
 function twentysixteen_fonts_url() {
 	$fonts_url = '';
 	$fonts     = array();
@@ -206,73 +156,62 @@ function twentysixteen_fonts_url() {
 }
 endif;
 
+
 /**
-*
-* Create function to author biography
-*
-**/
+** Create function to author biography **/
 function wpb_author_info_box( $content ) {
+	global $post;
 
-global $post;
+	// Detect if it is a single post with a post author
+	if ( is_single() && isset( $post->post_author ) ) {
 
-// Detect if it is a single post with a post author
-if ( is_single() && isset( $post->post_author ) ) {
+		// Get author's display name
+		$display_name = get_the_author_meta( 'display_name', $post->post_author );
 
-// Get author's display name
-$display_name = get_the_author_meta( 'display_name', $post->post_author );
+		// If display name is not available then use nickname as display name
+		if ( empty( $display_name ) )
+		$display_name = get_the_author_meta( 'nickname', $post->post_author );
 
-// If display name is not available then use nickname as display name
-if ( empty( $display_name ) )
-$display_name = get_the_author_meta( 'nickname', $post->post_author );
+		// Get author's biographical information or description
+		$user_description = get_the_author_meta( 'user_description', $post->post_author );
 
-// Get author's biographical information or description
-$user_description = get_the_author_meta( 'user_description', $post->post_author );
+		// Get link to the author archive page
+		$user_posts = get_author_posts_url( get_the_author_meta( 'ID' , $post->post_author));
 
-// Get author's website URL
-//$user_website = get_the_author_meta('url', $post->post_author);
+		if ( ! empty( $display_name ) )
 
-// Get link to the author archive page
-$user_posts = get_author_posts_url( get_the_author_meta( 'ID' , $post->post_author));
+		//$author_details = '<p class="author_name">About ' . $display_name . '</p>';
 
-if ( ! empty( $display_name ) )
+		if ( ! empty( $user_description ) )
+		// Author avatar and bio
 
-//$author_details = '<p class="author_name">About ' . $display_name . '</p>';
+		$author_details .= '<section class="author_details">';
 
-if ( ! empty( $user_description ) )
-// Author avatar and bio
+		$author_details .= '<div class="author_avatar">' . get_avatar( get_the_author_meta('user_email') , 90 ) . '</div>';
 
-$author_details .= '<article class="author_details">';
+		$author_details .= '<div class="author_content"><h3>About ' . $display_name . '</h3><blockquote class="text_author">' . nl2br( $user_description ). '</blockquote></div></section>';
 
-$author_details .= '<div class="author_avatar">' . get_avatar( get_the_author_meta('user_email') , 90 ) . '</div>';
-
-$author_details .= '<div class="author_content"><h3>About ' . $display_name . '</h3><blockquote class="text_author">' . nl2br( $user_description ). '</blockquote></div></article>';
-
-// Pass all this info to post content
-$content = $content . '<footer class="author_bio_section" >' . $author_details . '</footer>';
+		// Pass all this info to post content
+		$content = $content . '<footer class="author_bio_section" >' . $author_details . '</footer>';
+	}
+	return $content;
 }
-return $content;
-}
-
 // Add our function to the post content filter
 add_action( 'the_content', 'wpb_author_info_box' );
-
 // Allow HTML in author bio section
 remove_filter('pre_user_description', 'wp_filter_kses');
 
 
 /**
- * Register a Front Page custom.
- *
- */
+** Register a Front Page custom **/
 function themeslug_filter_front_page( $template ) {
     return is_home() ? '' : $template;
 }
 add_filter( 'front_page', 'themeslug_filter_front_page' );
 
+
 /**
- * Fix relative links on navs for non-root domains
- *
- */
+** Fix relative links on navs for non-root domains **/
 function rel_to_absolute($items){
   foreach($items as $item){
     if (strpos($item->url, '/%') === 0) {
@@ -283,37 +222,33 @@ function rel_to_absolute($items){
 }
 add_filter('wp_nav_menu_objects', 'rel_to_absolute');
 
-/**/
-/* Function which displays your post date in time ago format */
+
+/**
+** Function which displays your post date in time ago format **/
 function time_ago() {
 	return human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ).' '.__( 'ago' );
 }
 
+
 /*
-* Allow WP upload SVG
-*/
+** Allow WP upload SVG **/
 function cc_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
   return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
+
 /**
- * Handles JavaScript detection.
- *
- * Adds a `js` class to the root `<html>` element when JavaScript is detected.
- *
- */
+** Handles JavaScript detection.
+** Adds a `js` class to the root `<html>` element when JavaScript is detected **/
 function twentysixteen_javascript_detection() {
 	echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
 }
 add_action( 'wp_head', 'twentysixteen_javascript_detection', 0 );
 
 /**
- * Enqueues scripts and styles.
- *
- * @since Twenty Sixteen 1.0
- */
+** Enqueues scripts and styles **/
 function twentysixteen_scripts() {
 	// Add custom fonts, used in the main stylesheet.
 	wp_enqueue_style( 'twentysixteen-fonts', twentysixteen_fonts_url(), array(), null );
@@ -350,13 +285,7 @@ function twentysixteen_scripts() {
 add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
 
 /**
- * Adds custom classes to the array of body classes.
- *
- * @since Twenty Sixteen 1.0
- *
- * @param array $classes Classes for the body element.
- * @return array (Maybe) filtered body classes.
- */
+** Adds custom classes to the array of body classes **/
 function twentysixteen_body_classes( $classes ) {
 	// Adds a class of custom-background-image to sites with a custom background image.
 	if ( get_background_image() ) {
@@ -387,14 +316,10 @@ function twentysixteen_body_classes( $classes ) {
 add_filter( 'body_class', 'twentysixteen_body_classes' );
 
 /**
- * Converts a HEX value to RGB.
- *
- * @since Twenty Sixteen 1.0
- *
- * @param string $color The original color, in 3- or 6-digit hexadecimal form.
- * @return array Array containing RGB (red, green, and blue) values for the given
- *               HEX code, empty array otherwise.
- */
+** Converts a HEX value to RGB
+** @param string $color The original color, in 3- or 6-digit hexadecimal form.
+** @return array Array containing RGB (red, green, and blue) values for the given
+** HEX code, empty array otherwise **/
 function twentysixteen_hex2rgb( $color ) {
 	$color = trim( $color, '#' );
 
@@ -414,26 +339,21 @@ function twentysixteen_hex2rgb( $color ) {
 }
 
 /**
- * Custom template tags for this theme.
- */
+** Custom template tags for this theme **/
 require get_template_directory() . '/inc/template-tags.php';
 
 /**
- * Customizer additions.
- */
+** Customizer additions **/
 require get_template_directory() . '/inc/customizer.php';
 
 /**
- * Add custom image sizes attribute to enhance responsive image functionality
- * for content images
- *
- * @since Twenty Sixteen 1.0
- *
- * @param string $sizes A source size value for use in a 'sizes' attribute.
- * @param array  $size  Image size. Accepts an array of width and height
- *                      values in pixels (in that order).
- * @return string A source size value for use in a content image 'sizes' attribute.
- */
+** Add custom image sizes attribute to enhance responsive image functionality
+** for content images
+**
+** @param string $sizes A source size value for use in a 'sizes' attribute.
+** @param array  $size  Image size. Accepts an array of width and height
+** values in pixels (in that order).
+** @return string A source size value for use in a content image 'sizes' attribute **/
 function twentysixteen_content_image_sizes_attr( $sizes, $size ) {
 	$width = $size[0];
 
@@ -454,8 +374,6 @@ add_filter( 'wp_calculate_image_sizes', 'twentysixteen_content_image_sizes_attr'
  * Add custom image sizes attribute to enhance responsive image functionality
  * for post thumbnails
  *
- * @since Twenty Sixteen 1.0
- *
  * @param array $attr Attributes for the image markup.
  * @param int   $attachment Image attachment ID.
  * @param array $size Registered image size or flat array of height and width dimensions.
@@ -471,13 +389,7 @@ function twentysixteen_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
 add_filter( 'wp_get_attachment_image_attributes', 'twentysixteen_post_thumbnail_sizes_attr', 10 , 3 );
 
 /**
- * Modifies tag cloud widget arguments to have all tags in the widget same font size.
- *
- * @since Twenty Sixteen 1.1
- *
- * @param array $args Arguments for tag cloud widget.
- * @return array A new modified arguments.
- */
+** Modifies tag cloud widget arguments to have all tags in the widget same font size **/
 function twentysixteen_widget_tag_cloud_args( $args ) {
 	$args['largest'] = 1;
 	$args['smallest'] = 1;
@@ -485,3 +397,187 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
+
+
+/**
+** Register Widgets at the Front Page **/
+class CategoriesWidgets extends WP_Widget
+{
+  function CategoriesWidgets()
+  {
+    $widget_ops = array('description' => 'Positions categories at the front page' );
+    $this->WP_Widget('CategoriesWidgets', 'Positioning Categories', $widget_ops);
+  }
+
+  function form($instance)
+  {
+    $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'category' => '' ) );
+    $title = $instance['title'];
+    $type_category = $instance['category'];
+?>
+  <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+  <p><label for="<?php echo $this->get_field_id('category'); ?>">Category: <input class="widefat" id="<?php echo $this->get_field_id('category'); ?>" name="<?php echo $this->get_field_name('category'); ?>" type="text" value="<?php echo attribute_escape($type_category); ?>" /></label></p>
+<?php
+  }
+
+  function update($new_instance, $old_instance)
+  {
+    $instance = $old_instance;
+    $instance['title'] = $new_instance['title'];
+    $instance['category'] = $new_instance['category'];
+    return $instance;
+  }
+
+  function widget($args, $instance)
+  {
+    extract($args, EXTR_SKIP);
+
+    echo $before_widget;
+    //$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+    //$tipo2 = $tipo;
+    $type_category = empty($instance['category']) ? ' ' : apply_filters('widget_title', $instance['category']);
+
+    if (!empty($title))
+      echo $before_title . $title . $after_title;;
+
+		if($id=='sidebar-2') {
+			// WIDGET CODE GOES HERE
+			$i=0; // Counting articles
+			wp_reset_query();
+			$sticky_first = get_option( 'sticky_posts' );
+			$query_first_cat = array('category_name' => $type_category,
+				'orderby' => 'name',
+				'posts_per_page' => 3,
+				'post__in'  => $sticky_first
+			);
+			$post_first_cat = new WP_Query( $query_first_cat );
+			if( isset($sticky_first[0]) ) {
+				while($post_first_cat->have_posts()) : $post_first_cat->the_post();
+					$categorie_first = get_the_category();
+					// Social Medias
+					include 'template-parts/social-urls.php';
+					foreach ($categorie_first as $categorie) {
+						$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_first_cat->ID ), 'large' );
+					}
+					if($i==0) {
+						echo '<h2><a href="' . esc_url( get_category_link( $categorie_first[0]->term_id ) ) . '" title="'. $categorie_first[0]->name .'">'. $categorie_first[0]->name .'</a></h2>';
+						echo '<article class="article-top blk_'. $i .'" style="background-image:url(' .  esc_url( $categorie[0] ) . ')">';
+						echo '<a class="lnk-content-post" href="'.get_permalink($post_first_cat->ID).'" title="'.get_the_title().'">';
+						echo '<div class="blk-info">';
+						echo '<p class="post-format format-' . esc_html( get_post_format() ). '">' . esc_html( get_post_format() ). '</p>';
+						echo '<h3>'.get_the_title().'</h3>';
+						echo '<p class="posted-by">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span></p>';
+						echo '</div>';
+						echo '</a>';
+						echo '<div class="share">';
+						echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+						echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+						echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
+						echo '</div>';
+						echo '<div class="gradient"></div><div class="bottomBlue"></div>';
+						echo '</article>';
+					} else {
+						echo '<article class="article-bottom blk_'. $i .'">';
+						echo '<a href="'.get_permalink($post_first_cat->ID).'" title="' . get_the_title() . '">';
+						echo '<img src="' .  esc_url( $categorie[0] ) . '" alt="' . get_the_title() . '" />';
+						echo '<div class="secondary-info">';
+						echo '<h5>'.esc_html( $categorie_first[0]->name ).'</h5>';
+						echo '<h4>'.get_the_title().'</h4>';
+						echo '</div>';
+						echo '</a>';
+						echo '</article>';
+					} $i++;
+				endwhile;
+			}
+		}
+
+		if($id=='sidebar-3') {
+			$i=0; // Counting articles
+			wp_reset_query();
+			$sticky_third = get_option( 'sticky_posts' );
+			$query_third_cat = array('category_name' => $type_category,
+				'orderby' => 'name',
+				'posts_per_page' => 5,
+				'post__in'  => get_option( 'sticky_posts' )
+			);
+			$post_third_cat = new WP_Query( $query_third_cat );
+			if( isset($sticky_third[0]) ) {
+			//$post = get_post();
+				while($post_third_cat->have_posts()) : $post_third_cat->the_post();
+					$categorie_third = get_the_category();
+					// Social Medias
+					include 'template-parts/social-urls.php';
+					foreach ($categorie_third as $categorie) {
+						$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_third_cat->ID ), 'large' );
+					}
+					if($i==0) {
+						echo '<article class="article-top blk_'. $i .'" style="background-image:url(' .  esc_url( $categorie[0] ) . ')">';
+						echo '<a class="lnk-content-post" href="'.get_permalink($post->ID).'" title="' . get_the_title() . '">';
+						echo '<div class="blk-info">';
+						echo '<p class="post-format format-' . esc_html( get_post_format() ). '">' . esc_html( get_post_format() ). '</p>';
+						echo '<h3>'.get_the_title().'</h3>';
+						echo '<p class="posted-by">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span></p>';
+						echo '</div>';
+						echo '</a>';
+						echo '<div class="share">';
+						echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+						echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+						echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
+						echo '</div>';
+						echo '<div class="gradient"></div><div class="bottomBlue"></div>';
+						echo '</article>';
+					} else {
+						echo '<article class="article-bottom blk_'. $i .'">';
+						echo '<a href="'.get_permalink($post->ID).'" title="' . get_the_title() . '">';
+						echo '<p class="posted-by">' . esc_html( time_ago() ) . '</p>';
+						echo '<div class="secondary-info">';
+						echo '<h4>'.get_the_title().'</h4>';
+						echo '</div>';
+						echo '</a>';
+						echo '</article>';
+					} $i++;
+				endwhile;
+			}
+		}
+
+		if($id=='sidebar-4') {
+			wp_reset_query();
+			$sticky_third = get_option( 'sticky_posts' );
+			$query_third_cat = array('category_name' => $type_category,
+				'orderby' => 'name',
+				'posts_per_page' => 1,
+				'post__in'  => get_option( 'sticky_posts' )
+			);
+			$post_third_cat = new WP_Query( $query_third_cat );
+			if( isset($sticky_third[0]) ) {
+			//$post = get_post();
+				while($post_third_cat->have_posts()) : $post_third_cat->the_post();
+					$categorie_third = get_the_category();
+					// Social Medias
+					include 'template-parts/social-urls.php';
+					foreach ($categorie_third as $categorie) {
+						$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_third_cat->ID ), 'large' );
+					}
+					echo '<article class="article-top blk_'. $i .'" style="background-image:url(' .  esc_url( $categorie[0] ) . ')">';
+					echo '<a class="lnk-content-post" href="'.get_permalink($post->ID).'" title="' . get_the_title() . '">';
+					echo '<div class="blk-info">';
+					echo '<p class="post-format format-' . esc_html( get_post_format() ). '">' . esc_html( get_post_format() ). '</p>';
+					echo '<h3>'.get_the_title().'</h3>';
+					echo '<p class="posted-by">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span></p>';
+					echo '</div>';
+					echo '</a>';
+					echo '<div class="share">';
+					echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+					echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+					echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
+					echo '</div>';
+					echo '<div class="gradient"></div><div class="bottomBlue"></div>';
+					echo '</article>';
+				endwhile;
+			}
+		}
+
+    echo $after_widget;
+  }
+}
+add_action( 'widgets_init', create_function('', 'return register_widget("CategoriesWidgets");') );
