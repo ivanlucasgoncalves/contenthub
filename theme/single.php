@@ -70,7 +70,4 @@ $img_logo_linkedin = get_theme_mod( '$img_logo_linkedin', esc_url( get_template_
 			</section>
 <?php wp_reset_query(); } ?>
 
-
-<?php get_sidebar( 'content-bottom' ); ?>
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

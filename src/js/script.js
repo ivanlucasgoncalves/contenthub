@@ -19,14 +19,14 @@ jQuery( document ).ready( function($) {
 	$( "#showRightPush" ).click(function() {
 	  $( '.overlay-contentscale' ).toggleClass( "open" );
 		$( 'body' ).toggleClass( "pos-fixed" );
-		$("header").toggleClass("whiteBg");
+		$("#masthead").toggleClass("whiteBg");
 	});
 
 	/** Login **/
 	$( ".userIcon" ).click(function() {
 	  $( '.contentscale-login' ).toggleClass( "open" );
 		$( 'body' ).toggleClass( "pos-fixed" );
-		$("header").toggleClass("whiteBg");
+		$("#masthead").toggleClass("whiteBg");
 	});
 
 	/** Search **/
@@ -48,7 +48,7 @@ jQuery( document ).ready( function($) {
 				$('html,body').animate({
 					scrollTop: target.offset().top
 				}, 1000, function() {
-					$('header').removeClass('appear').addClass('disappear');
+					$('#masthead').removeClass('appear').addClass('disappear');
 		      $('.postActionsNav').removeClass('navAppear').addClass('navDisappear');
 					$('.progress-container').css('top', '0px');
 			  });
@@ -62,9 +62,9 @@ jQuery( document ).ready( function($) {
 		var scroll = $(window).scrollTop();
 		if (scroll > 542) {
 				$(".progress-container, .floatingRecommend").addClass("fixed"); // you don't need to add a "." in before your class name
-				$("header").addClass("whiteBg"); // you don't need to add a "." in before your class name
+				$("#masthead").addClass("whiteBg"); // you don't need to add a "." in before your class name
 		} else {
-				$("header").removeClass("whiteBg");
+				$("#masthead").removeClass("whiteBg");
 				$(".progress-container, .floatingRecommend").removeClass("fixed");
 		}
 	});
@@ -127,7 +127,7 @@ jQuery( document ).ready( function($) {
 	var didScroll;
 	var lastScrollTop = 0;
 	var delta = 5;
-	var navbarHeight = $('header').outerHeight();
+	var navbarHeight = $('#masthead').outerHeight();
 	$(window).scroll(function(event){
 	    didScroll = true;
 	});
@@ -146,18 +146,18 @@ jQuery( document ).ready( function($) {
     // This is necessary so you never see what is "behind" the navbar.
     if (st > lastScrollTop && st > navbarHeight){
       // Scroll Down
-      $('header').removeClass('appear').addClass('disappear');
+      $('#masthead').removeClass('appear').addClass('disappear');
       $('.postActionsNav').removeClass('navAppear').addClass('navDisappear');
     } else {
       // Scroll Up
       if(st + $(window).height() < $(document).height()) {
-        $('header').removeClass('disappear').addClass('appear');
+        $('#masthead').removeClass('disappear').addClass('appear');
         $('.postActionsNav').removeClass('navDisappear').addClass('navAppear');
       }
     }
-    if ($('header').hasClass('appear')){
+    if ($('#masthead').hasClass('appear')){
         $('.progress-container').css('top', '60px');
-    } else if ($('header').hasClass('disappear')){
+    } else if ($('#masthead').hasClass('disappear')){
         $('.progress-container').css('top', '0px');
     }
     lastScrollTop = st;

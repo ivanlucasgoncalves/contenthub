@@ -35,7 +35,7 @@
 </head>
 <body <?php body_class(); ?>>
 
-<header id="masthead">
+<header id="masthead" class="main-header">
 	<div class="site-header-main">
 		<div class="site-branding">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( $img_logo ); ?>" alt="Logo ContentHub"></a>

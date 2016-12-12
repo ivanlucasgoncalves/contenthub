@@ -28,5 +28,4 @@ get_header(); ?>
 
 </main><!-- .site-main -->
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

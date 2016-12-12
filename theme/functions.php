@@ -110,6 +110,14 @@ add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 ** Registers a widget area **/
 function twentysixteen_widgets_init() {
 	register_sidebar( array(
+		'name'          => __( 'Post Highlights', 'twentysixteen' ),
+		'id'            => 'sidebar-1',
+		'description'   => __( 'Appears at the front page of the post highlights.', 'twentysixteen' ),
+		'before_widget' => '<section id="%1$s" class="blk_categories %2$s">',
+    'after_widget'  => '</section>',
+	) );
+
+	register_sidebar( array(
 		'name'          => __( 'Post Categories', 'twentysixteen' ),
 		'id'            => 'sidebar-2',
 		'description'   => __( 'Appears at the front page of the post categories.', 'twentysixteen' ),
@@ -310,7 +318,7 @@ function twentysixteen_body_classes( $classes ) {
 		$classes[] = 'hfeed';
 	}
 
-	if ( ! is_home() ) {
+	if ( ! is_home() && ! is_category() ) {
 		$classes[] = 'internal-pages';
 	}
 
@@ -441,7 +449,50 @@ class CategoriesWidgets extends WP_Widget
     $type_category = empty($instance['category']) ? ' ' : apply_filters('widget_title', $instance['category']);
 
     if (!empty($title))
-      echo $before_title . $title . $after_title;;
+      echo $before_title . $title . $after_title;
+
+		if($id=='sidebar-1') {
+			$i=0; // Counting articles
+			wp_reset_query();
+			$sticky = get_option( 'sticky_posts' );
+			$args = array('category_name' => $type_category,
+				'orderby'        => 'name',
+				'posts_per_page' => 3,
+				'post__in'       => $sticky
+			);
+			 $loop = new WP_Query($args);
+			 if( isset($sticky[0]) ) {
+				while($loop->have_posts()) : $loop->the_post();
+					$categories = get_the_category();
+					// Social Medias
+					include 'template-parts/social-urls.php';
+					foreach ($categories as $categorie) {
+						$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $loop->ID ), 'large' );
+						$category_id = get_cat_ID( 'highlights' );
+						$category_link = get_category_link( $category_id );
+					}
+					echo '<article class="blk_'. $i .'" style="background-image:url(' .  esc_url( $categorie[0] ) . ')">';
+					echo '<div class="article-info">';
+					echo '<a href="'.get_permalink().'" class="lnk-post" title="'.get_the_title().'">';
+					echo '<div class="blk-info">';
+					echo '<p class="category">'. esc_html( $categories[0]->name ) .'</p>';
+					echo '<h2 class="title">'.get_the_title().'</h2>';
+					echo '<p class="posted">' . esc_html( time_ago() ) . ' | <span>by '.get_the_author_meta( "display_name" ).'</span></p>';
+					echo '</div>';
+					echo '</a>';
+					echo '<div class="share">';
+					echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook.'" alt="Facebook" width="13px"></a>';
+					echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter.'" alt="Twitter" width="27px"></a>';
+					echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin.'" alt="Linkedin" width="24px"></a>';
+					echo '</div>';
+					echo '</div>';
+					echo '<div class="gradient"></div>';
+					echo '<div class="bottomBlue"></div>';
+					echo '</article>';
+					$i++;
+				endwhile;
+			 }
+		}
 
 		if($id=='sidebar-2') {
 			// WIDGET CODE GOES HERE
@@ -497,14 +548,14 @@ class CategoriesWidgets extends WP_Widget
 		if($id=='sidebar-3') {
 			$i=0; // Counting articles
 			wp_reset_query();
-			$sticky_third = get_option( 'sticky_posts' );
+			$sticky = get_option( 'sticky_posts' );
 			$query_third_cat = array('category_name' => $type_category,
 				'orderby' => 'name',
 				'posts_per_page' => 5,
-				'post__in'  => get_option( 'sticky_posts' )
+				'post__in'  => $sticky
 			);
 			$post_third_cat = new WP_Query( $query_third_cat );
-			if( isset($sticky_third[0]) ) {
+			if( isset($sticky[0]) ) {
 			//$post = get_post();
 				while($post_third_cat->have_posts()) : $post_third_cat->the_post();
 					$categorie_third = get_the_category();
@@ -545,14 +596,14 @@ class CategoriesWidgets extends WP_Widget
 
 		if($id=='sidebar-4') {
 			wp_reset_query();
-			$sticky_third = get_option( 'sticky_posts' );
+			$sticky = get_option( 'sticky_posts' );
 			$query_third_cat = array('category_name' => $type_category,
 				'orderby' => 'name',
 				'posts_per_page' => 1,
-				'post__in'  => get_option( 'sticky_posts' )
+				'post__in'  => $sticky
 			);
 			$post_third_cat = new WP_Query( $query_third_cat );
-			if( isset($sticky_third[0]) ) {
+			if( isset($sticky[0]) ) {
 			//$post = get_post();
 				while($post_third_cat->have_posts()) : $post_third_cat->the_post();
 					$categorie_third = get_the_category();
