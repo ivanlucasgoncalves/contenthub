@@ -55,9 +55,9 @@
       <div class="search">
   			<div class="searchIcon"></div>
   		</div>
-      <div class="user">
+      <!--<div class="user">
   			<div class="userIcon">Log In</div>
-  		</div>
+  		</div>-->
       <button id="showRightPush" class="tcon tcon-menu--xcross hidden-desktop" aria-label="toggle menu">
         <span class="tcon-menu__lines" aria-hidden="true"></span>
         <span class="tcon-visuallyhidden">Show Menu</span>
