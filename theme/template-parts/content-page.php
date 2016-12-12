@@ -1,42 +1,38 @@
 <?php
 /**
- * The template used for displaying page content
- *
- */
-?>
+** The template used for displaying page content **/
+$img_logo_facebook_black = get_theme_mod( 'img_logo_facebook_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-facebook-black.svg' ) ); // Logo Facebook Black
+$img_logo_twitter_black = get_theme_mod( 'img_logo_twitter_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-twitter-black.svg' ) ); // Logo Twitter Black
+$img_logo_linkedin_black = get_theme_mod( 'img_logo_linkedin_black', esc_url( get_template_directory_uri() . '/img/svg/lnk-linkedin-black.svg' ) ); // Logo Linkedin Black ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+<section class="internal-pages">
+	<div id="content">
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+			<?php twentysixteen_excerpt(); ?>
+			<div class="entry-content">
+				<?php // Content
+				the_content();	?>
 
-	<?php twentysixteen_post_thumbnail(); ?>
+				<?php // Getting tags related in each single post
+					$posttags = get_the_tags();
+					if ($posttags) {
+					  foreach ($posttags as $tag) {
+					     $tagnames[count($tagnames)] = $tag->name;
+					  }
+					  $comma_separated_tagnames = implode(" #", $tagnames);
+					  print_r("<p class='p-tags'>#$comma_separated_tagnames</p>");
+					}
+				?>
 
-	<div class="entry-content">
-		<?php
-		the_content();
-
-		wp_link_pages( array(
-			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentysixteen' ) . '</span>',
-			'after'       => '</div>',
-			'link_before' => '<span>',
-			'link_after'  => '</span>',
-			'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>%',
-			'separator'   => '<span class="screen-reader-text">, </span>',
-		) );
-		?>
-	</div><!-- .entry-content -->
-
-	<?php
-		edit_post_link(
-			sprintf(
-				/* translators: %s: Name of current post */
-				__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-				get_the_title()
-			),
-			'<footer class="entry-footer"><span class="edit-link">',
-			'</span></footer><!-- .entry-footer -->'
-		);
-	?>
-
-</article><!-- #post-## -->
+				<?php
+				// Social Medias
+				include 'social-urls.php';
+				echo '<div id="social-shares" class="medias-links">';
+				echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook_black.'" alt="Facebook" width="13px"></a>';
+				echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter_black.'" alt="Twitter" width="27px"></a>';
+				echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin_black.'" alt="Linkedin" width="24px"></a>';
+				echo '</div>';?>
+			</div><!-- .entry-content -->
+		</article><!-- #post-## -->
+	</div>
+</section>

@@ -18,11 +18,11 @@
  $permissions = ['email']; // Optional permissions
  $loginUrl = $helper->getLoginUrl('http://10.1.1.54:8789/contentHub/theme/social-logins/fb-callback.php', $permissions);*/
 
-$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.jpg' ) ); // Logo Facebook
- $img_facebook = get_theme_mod( 'img_facebook', esc_url( get_template_directory_uri() . '/img/svg/facebookWhite.svg' ) ); // Logo Facebook
- $img_twitter = get_theme_mod( 'img_twitter', esc_url( get_template_directory_uri() . '/img/svg/twitterWhite.svg' ) ); // Logo Twitter
- $img_google = get_theme_mod( 'img_google', esc_url( get_template_directory_uri() . '/img/svg/googleWhite.svg' ) ); // Logo Google+
- $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri() . '/img/svg/linkedinWhite.svg' ) ); // Logo Linkedin ?>
+$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.jpg' ) ); // Logo ContentHub
+$img_facebook = get_theme_mod( 'img_facebook', esc_url( get_template_directory_uri() . '/img/svg/facebookWhite.svg' ) ); // Logo Facebook
+$img_twitter = get_theme_mod( 'img_twitter', esc_url( get_template_directory_uri() . '/img/svg/twitterWhite.svg' ) ); // Logo Twitter
+$img_google = get_theme_mod( 'img_google', esc_url( get_template_directory_uri() . '/img/svg/googleWhite.svg' ) ); // Logo Google+
+$img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri() . '/img/svg/linkedinWhite.svg' ) ); // Logo Linkedin ?>
 
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="content">
@@ -56,7 +56,7 @@ $img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_u
   	</div>
   </div>
 <?php endif; ?>
-<div class="overlay overlay-contentscale">
+<div class="overlay-menu overlay-contentscale">
 	<?php if ( has_nav_menu( 'secondary' ) ) : ?>
 			<?php if ( has_nav_menu( 'secondary' ) ) : ?>
 				<nav id="site-navigation" class="secondary-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Secondary Menu', 'twentysixteen' ); ?>">

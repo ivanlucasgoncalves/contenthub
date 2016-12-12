@@ -74,6 +74,8 @@ add_action( 'after_setup_theme', 'twentysixteen_content_width', 0 );
 /**
 ** Search AJAX Page **/
 function load_search_results() {
+		$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.jpg' ) ); // Logo ContentHub
+
     $query = $_POST['query'];
 
     $args = array(
@@ -91,6 +93,7 @@ function load_search_results() {
 				while ( $search->have_posts() ) : $search->the_post();
 					get_template_part( 'template-parts/content', 'search' );
 				endwhile;
+				echo '<figure class="logofoo-contenthub"><img src="'.$img_logo_hub.'" alt="ContentHub"></fiugre>'; // Logo ContentHub
 			else :
 			echo '<p>Sorry, It seems we can’t find what you’re looking for.</p>';
 		endif;

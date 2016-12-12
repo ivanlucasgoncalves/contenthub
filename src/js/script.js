@@ -4,6 +4,11 @@
 
 jQuery( document ).ready( function($) {
 
+	/** ScrollBar **/
+	/*var parent = document.getElementById('divscroll');
+	var child = document.getElementById('chilscroll');
+	child.style.right = child.clientWidth - child.offsetWidth + "px";*/
+
 	/** AddClass for every single img for avoiding mistakes **/
 	$("img").addClass("img-fluid");
 
@@ -14,12 +19,14 @@ jQuery( document ).ready( function($) {
 	$( "#showRightPush" ).click(function() {
 	  $( '.overlay-contentscale' ).toggleClass( "open" );
 		$( 'body' ).toggleClass( "pos-fixed" );
+		$("header").toggleClass("whiteBg");
 	});
 
 	/** Login **/
 	$( ".userIcon" ).click(function() {
 	  $( '.contentscale-login' ).toggleClass( "open" );
 		$( 'body' ).toggleClass( "pos-fixed" );
+		$("header").toggleClass("whiteBg");
 	});
 
 	/** Search **/
@@ -155,6 +162,8 @@ jQuery( document ).ready( function($) {
     }
     lastScrollTop = st;
 	}
+
+
 
 }); /* Close Document Ready */
 
