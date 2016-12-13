@@ -49,9 +49,11 @@ $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri
         <span>Comment</span>
       </a>
   	<div class="lnk-share">
-      <a href="#social-shares" title="Share article">
         <span>Share</span>
-      </a>
+        <?php include 'template-parts/social-urls.php';
+        echo '<a '.$facebook_link_atts.' ><img src="'.$img_logo_facebook_black.'" alt="Facebook" width="9px"></a>';
+        echo '<a '.$twitter_link_atts.' ><img src="'.$img_logo_twitter_black.'" alt="Twitter" width="18px"></a>';
+        echo '<a '.$linkedin_link_atts.' ><img src="'.$img_logo_linkedin_black.'" alt="Linkedin" width="17px"></a>'; ?>
   	</div>
   	</div>
   </div>
