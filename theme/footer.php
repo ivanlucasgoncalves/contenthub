@@ -18,7 +18,7 @@
  $permissions = ['email']; // Optional permissions
  $loginUrl = $helper->getLoginUrl('http://10.1.1.54:8789/contentHub/theme/social-logins/fb-callback.php', $permissions);*/
 
-$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.jpg' ) ); // Logo ContentHub
+$img_logo_hub = get_theme_mod( 'img_logo_hub', esc_url( get_template_directory_uri() . '/img/logo-hub.png' ) ); // Logo ContentHub
 $img_facebook = get_theme_mod( 'img_facebook', esc_url( get_template_directory_uri() . '/img/svg/facebookWhite.svg' ) ); // Logo Facebook
 $img_twitter = get_theme_mod( 'img_twitter', esc_url( get_template_directory_uri() . '/img/svg/twitterWhite.svg' ) ); // Logo Twitter
 $img_google = get_theme_mod( 'img_google', esc_url( get_template_directory_uri() . '/img/svg/googleWhite.svg' ) ); // Logo Google+
@@ -70,8 +70,8 @@ $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri
 				</nav><!-- .nav.secondary-navigation -->
 			<?php endif; ?>
 	<?php endif; ?>
-	<a href="#" class="logoOverlay"></a>
-	<a href="#" class="textOverlay"><span class="content">CONTENT</span><span class="thicker">HUB</span></a>
+	<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logoOverlay"></a>
+	<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="textOverlay"><span class="content">CONTENT</span><span class="thicker">HUB</span></a>
 </div><!-- .Secondary Navigation -->
 <div class="overlay-login contentscale-login">
 	<div class="blk-social-logins">
@@ -108,9 +108,11 @@ $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri
       </aside>
       <section class="content-search">
         <div id="content-search_results">
-          <div id="loader" class="la-ball-spin-rotate la-2x">
-            <div></div>
-            <div></div>
+          <div id="divscroll">
+            <div id="loader" class="la-ball-spin-rotate la-2x">
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </section>

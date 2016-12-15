@@ -4,6 +4,7 @@
  * Displays all of the head element and everything up until the "site-content" div.
  */
  $img_logo = get_theme_mod( 'img_logo', esc_url( get_template_directory_uri() . '/img/logo.png' ) ); // Logo
+ $img_logo_mobile = get_theme_mod( 'img_logo_mobile', esc_url( get_template_directory_uri() . '/img/logo-hub.png' ) ); // Logo Mbile
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
@@ -38,7 +39,8 @@
 <header id="masthead" class="main-header">
 	<div class="site-header-main">
 		<div class="site-branding">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( $img_logo ); ?>" alt="Logo ContentHub"></a>
+			<a class="hide-mobile show-screen" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( $img_logo ); ?>" alt="Logo ContentHub"></a>
+      <a class="show-mobile hide-screen" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( $img_logo_mobile ); ?>" alt="Logo ContentHub"></a>
 		</div><!-- .site-branding -->
     <div class="blk-menu-search">
   		<?php if ( has_nav_menu( 'primary' ) ) : ?>

@@ -175,7 +175,7 @@ jQuery(document).on( 'submit', '.search-form', function() {
     var $form = jQuery(this);
     var $input = $form.find('input[name="s"]');
     var query = $input.val();
-    var $content = jQuery('#content-search_results');
+    var $content = jQuery('#divscroll');
 		jQuery("#loader").show();
 
     jQuery.ajax({

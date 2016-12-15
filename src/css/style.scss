@@ -51,7 +51,7 @@
   overflow: hidden;
 }
 // ScrollBar hidden
-#divscroll{
+/*#divscroll{
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -62,9 +62,9 @@
   top: 0px;
   bottom: 0px;
   left: 0px;
-  right: 0px; /* exact value is given through JavaScript */
+  right: 0px; exact value is given through JavaScript
   overflow: auto;
-}
+}*/
 
 // =============================================================================
 // 03. Main Style
@@ -80,6 +80,12 @@
     display: flex;
     justify-content: space-between;
   }
+}
+.hide-screen {
+  display: none;
+}
+.show-screen {
+  display: block;
 }
 
 // =============================================================================
@@ -152,21 +158,21 @@ header.main-header {
             margin: 0 auto;
             background: url(../img/svg/search.svg);
             background-size: 100% 100%;
+            display: flex;
+            align-items: center;
           }
           &:before {
-            display: table;
+            display: flex;
+            align-items: center;
             content: " ";
             border-left: 1px solid $light_grey;
-            position: absolute;
-            left: 0;
             height: 30px;
           }
           &:after {
-            display: table;
+            display: flex;
+            align-items: center;
             content: " ";
             border-right: 1px solid $light_grey;
-            position: absolute;
-            right: 0;
             height: 30px;
           }
           &:hover, &:active {
@@ -468,7 +474,8 @@ article.article-top:hover .share a:hover,
     box-sizing: border-box;
     transition: all 0.3s ease-in-out;
     float: left;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center;
     cursor: pointer;
     .article-info {
       position: absolute;
@@ -996,9 +1003,9 @@ section.internal-pages {
         }
       }
       p {
-        font-weight: 300;
+        font-weight: 100;
         font-size: 1.25em;
-        color: #111;
+        color: $black;
         line-height: 1.55em;
         margin-bottom: 30px;
       }
@@ -1125,6 +1132,7 @@ section.internal-pages {
         line-height: 1.3em;
         border: none;
         outline: #777;
+        -webkit-appearance: none;
       }
       #author {
         margin-right: $marg10;
@@ -1238,6 +1246,7 @@ section.internal-pages {
   height: 100%;
   left: 0;
   z-index: 9;
+  overflow-y: auto;
 }
 .overlay-login {
   top: 60px;
@@ -1250,11 +1259,9 @@ section.internal-pages {
 .overlay-menu {
   top: 60px;
   background: rgba(44, 89, 109, 0.97);
+  padding: 120px 0;
   nav {
     text-align: center;
-    position: relative;
-    top: 50%;
-    height: 60%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     ul {
@@ -1442,7 +1449,7 @@ section.internal-pages {
         background: none;
         border: 0;
         width: 70%;
-        font-size: 3.5em;
+        font-size: 3em;
         opacity: 0.5;
         font-weight: 800;
         text-align: center;
@@ -1452,6 +1459,7 @@ section.internal-pages {
         margin: 0 auto;
         padding: 0;
         display: block;
+        -webkit-appearance: none;
         &:focus {
           border-bottom: 1px solid $blue;
           opacity: 1;
@@ -1533,6 +1541,9 @@ section.internal-pages {
       #content-search_results {
         width: 70.001%;
         margin: 0 auto;
+        position: relative;
+        min-height: 450px;
+        height: 100%;
         article {
           margin-bottom: $marg30;
           a {
@@ -1612,7 +1623,7 @@ section.internal-pages {
   width: 100%;
   position: fixed;
   box-sizing: border-box;
-  box-shadow: 0px 0px 25px #dedede;
+  box-shadow: 0px 0px 10px #dedede;
   behavior: url(../htc/pie.htc);
   zoom: 1;
   bottom: -50px !important;
@@ -1622,7 +1633,7 @@ section.internal-pages {
   display: flex;
   .centralize {
     height: auto;
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -1830,13 +1841,25 @@ footer.site-footer {
 }
 
 @media only screen and (max-width: 620px) {
-
+  .hide-mobile {
+    display: none;
+  }
+  .show-mobile {
+    display: block;
+  }
   .home-highlights {
     .blk_0,
     .blk_1,
     .blk_2 {
       width: 100%;
       height: 340px;
+    }
+    article {
+      .article-info {
+        h2 {
+          font-size: 1.7em;
+        }
+      }
     }
   }
   .post-categories,
@@ -1864,6 +1887,13 @@ footer.site-footer {
     }
   }
   .blk-search {
+    padding: 60px 20px 30px 20px;
+    .logo_hub {
+      left: 20px;
+    }
+    .close-search {
+      right: 20px;
+    }
     .content-form_search {
       padding: 0;
       .search-form {
@@ -1914,9 +1944,8 @@ footer.site-footer {
       display: block;
       .blk_categories_related {
         width: 100%;
+      }
     }
   }
-}
-
 
 }
