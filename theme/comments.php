@@ -23,7 +23,7 @@ if ( post_password_required() ) {
 
 			<?php if ( have_comments() ) : ?>
 				<h2>Comments</h2>
-				
+
 				<div class="comment-list">
 					<?php
 						wp_list_comments( array(
@@ -44,5 +44,26 @@ if ( post_password_required() ) {
 				<p class="no-comments"><?php _e( 'Comments are closed.', 'twentysixteen' ); ?></p>
 			<?php endif; ?>
 		</article>
+
+		<div style="display:none">
+			<!--[if lte IE 8]>
+			<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+			<![endif]-->
+			<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+			<script>
+			  hbspt.forms.create({
+			    css: '',
+			    portalId: '2223430',
+			    formId: '29aafc1d-9802-4292-b3d3-4eebc0298cc9',
+					onFormReady: function($form) {
+		        $form.attr('target', 'hubspot-iframe');
+		      }
+			  });
+			</script>
+			<!-- iFrame that data will get submitted to. This hack stops the page redirect. -->
+  		<iframe name="hubspot-iframe" id="hubspot-iframe"></iframe>
+		</div>
+
+
 	</div>
 </div><!-- .comments-area -->

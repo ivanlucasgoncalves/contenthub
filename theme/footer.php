@@ -119,7 +119,7 @@ $img_likedin = get_theme_mod( 'img_likedin', esc_url( get_template_directory_uri
     </div>
 	</div>
 </div><!-- .Search -->
-
 <?php wp_footer(); ?>
+
 </body>
 </html>

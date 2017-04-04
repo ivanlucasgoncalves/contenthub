@@ -163,8 +163,23 @@ jQuery( document ).ready( function($) {
     lastScrollTop = st;
 	}
 
+	/** Post Comments Form **/
+	$('#commentform input[type="text"]').on('change', function() {
+		//Get the data from all the fields
+		var singleValues = $(this).val();
+		$('.hs_author .hs-input').val(singleValues);
+	});
+	$('#commentform input[type="email"]').on('change', function() {
+		//Get the data from all the fields
+		var singleValues = $(this).val();
+		$('.hs_email .hs-input').val(singleValues);
+	});
 
-
+	// Trap for forms - I know it is not pretty but I should make it quickly
+	$('#commentform #submit').click(function() {
+		$( ".hbspt-form form" ).submit();
+	});
+	
 }); /* Close Document Ready */
 
 

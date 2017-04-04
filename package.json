@@ -6,7 +6,7 @@
   "author": {
     "name": "Ivan Lucas"
   },
-  "repository": "https://github.com/iRecruitAustralia/contentHub.git",
+  "repository": "https://github.com/ivanlucasgoncalves/contenthub.git",
   "main": "Gruntfile.js",
   "dependencies": {
     "grunt": "*"

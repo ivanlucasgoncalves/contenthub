@@ -510,11 +510,13 @@ class CategoriesWidgets extends WP_Widget
 					$categorie_first = get_the_category();
 					// Social Medias
 					include 'template-parts/social-urls.php';
+					$calltoaction = get_field('embed_call-to-action', 'widget_' . $widget_id);
 					foreach ($categorie_first as $categorie) {
 						$categorie = wp_get_attachment_image_src( get_post_thumbnail_id( $post_first_cat->ID ), 'large' );
 					}
 					if($i==0) {
-						echo '<h2><a href="' . esc_url( get_category_link( $categorie_first[0]->term_id ) ) . '" title="'. $categorie_first[0]->name .'">'. $categorie_first[0]->name .'</a></h2>';
+						echo '<h2>'.$calltoaction.'</h2>';
+						//echo '<h2><a href="' . esc_url( get_category_link( $categorie_first[0]->term_id ) ) . '" title="'. $categorie_first[0]->name .'">'. $categorie_first[0]->name .'</a></h2>';
 						echo '<article class="article-top blk_'. $i .'" style="background-image:url(' .  esc_url( $categorie[0] ) . ')">';
 						echo '<a class="lnk-content-post" href="'.get_permalink($post_first_cat->ID).'" title="'.get_the_title().'">';
 						echo '<div class="blk-info">';

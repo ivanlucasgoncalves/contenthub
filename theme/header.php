@@ -33,6 +33,9 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
+  <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/2223430.js"></script>
+  <!-- End of HubSpot Embed Code -->
 </head>
 <body <?php body_class(); ?>>
 
@@ -57,9 +60,9 @@
       <div class="search">
   			<div class="searchIcon"></div>
   		</div>
-      <!--<div class="user">
+      <div class="user">
   			<div class="userIcon">Log In</div>
-  		</div>-->
+  		</div>
       <button id="showRightPush" class="tcon tcon-menu--xcross hidden-desktop" aria-label="toggle menu">
         <span class="tcon-menu__lines" aria-hidden="true"></span>
         <span class="tcon-visuallyhidden">Show Menu</span>
